@@ -1,0 +1,23 @@
+version: 0.2
+
+# Define CodeBuild phases
+phases:
+  install:
+    commands:
+      - npm install
+
+  pre_build:
+    commands:
+      - npm test
+
+  build:
+    commands:
+      - npm run build
+
+  post_build:
+    commands:
+      - deploy-s3
+
+cache:
+  paths:
+    - '/var/lib/docker'

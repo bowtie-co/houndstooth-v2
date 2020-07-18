@@ -1,0 +1,51 @@
+version: '3.5'
+
+services:
+  template-react:
+    tty: true
+    stdin_open: true
+    networks:
+      - proxy-network
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/app
+      - type: volume
+        source: nodemodules
+        target: /app/node_modules
+        volume:
+          nocopy: true
+      - type: volume
+        source: npm
+        target: /root/.npm
+        volume:
+          nocopy: true
+
+  template-react-proxy:
+    networks:
+      - proxy-network
+    build:
+      context: .
+      target: proxy
+    depends_on:
+      - template-react
+    labels:
+      - "traefik.frontend.headers.SSLRedirect=true"
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:template-react.bowtie.dev"
+      - "traefik.docker.network=bowtie-dev"
+
+volumes:
+  npm:
+  nodemodules:
+
+networks:
+  proxy-network:
+    external:
+      name: bowtie-dev

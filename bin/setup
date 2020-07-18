@@ -1,0 +1,4 @@
+#!/bin/bash
+
+bin/run "bin/init"
+bin/run "bin/rebuild"

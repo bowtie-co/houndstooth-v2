@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ -d build ]]; then
+  bin/run "rm -rf build"
+fi
+
+if [[ -d node_modules ]]; then
+  bin/run "rm -rf node_modules"
+fi

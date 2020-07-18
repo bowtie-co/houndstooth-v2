@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+log() {
+  cyan='\033[0;36m'
+  nocolor='\033[0m'
+  prefix="[INFO] "
+  echo -e "${cyan}${prefix}${1}${nocolor}"
+}
+
+ARGS="$@"
+
+log "Running: '${ARGS}'"
+
+exec $ARGS

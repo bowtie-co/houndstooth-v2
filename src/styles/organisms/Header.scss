@@ -1,0 +1,182 @@
+.top-nav-section {
+  text-align: center;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.25);
+  z-index: 1;
+
+  a {
+    &:hover {
+      color: $theme-primary-color !important;
+    }
+  }
+
+  &.navbar {
+    padding: 0 1rem 0 0;
+  }
+
+  .badge {
+    cursor: default;
+  }
+
+  .logout-btn {
+    margin-top: .3rem;
+  }
+
+  .form-group {
+    margin: 0;
+  }
+
+  .Select-control {
+    width: 265px;
+    text-align: start;
+  }
+
+  .select-form-group-container * {
+    margin: 0;
+  }
+
+  .navbar-brand {
+    padding: 0;
+    .logo-lg {
+      margin: 0 1rem 0 0;
+    }
+  }
+
+  .nav-bar{
+    justify-content: flex-end;
+    width: 100%;
+    flex-grow: 1;
+    padding: 10px;
+    .nav-link{
+      width: 90px;
+      height: 100%;
+      text-decoration: none;
+      cursor: pointer;
+      align-items: center;
+      font-size: 17px;
+      color: #ffffff;
+      display: flex;
+      &.disabled:hover{
+        cursor: default;
+        color: grey;
+        background-color: #333333;
+      }
+    }
+
+    .nav-darkmode {
+      display: flex;
+      align-items: center;
+      width: 90px;
+      height: 100%;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .avatar-menu {
+      display: flex;
+      flex-direction: row;
+      margin: 8px 12px;
+      align-items: center;
+      background-color: transparent;
+      color: grey;
+      border: none;
+      &:focus{
+        box-shadow: transparent;
+      }
+    }
+  }
+}
+
+.collapse-horizontal {
+  position: relative;
+  height: 100%;
+  border-right: 2px #d3d3d366 solid;
+  box-shadow: #d3d3d366 2px 0px 8px;
+  transition: width 1s ease;
+}
+
+.collapsed-side-menu {
+  width: 80px;
+}
+
+.isCollapsed,
+.collapsedWrapper {
+  width: 72px;
+}
+
+.isCollapsed {
+  overflow: hidden;
+  border-right: 2px #d3d3d366 solid;
+  .nav-link {
+    span {
+      display: none;
+    }
+  }
+}
+
+.collapsable-arrow {
+  z-index: 4;
+  position: absolute;
+  border: 2px #d3d3d366 solid;
+  box-shadow: #d3d3d366 3px 3px 7px;
+  border-left: none;
+  right: -44px;
+  top: 24px;
+  width: 44px;
+  height: 44px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.side-menu-section {
+  // padding-top: 10px;
+  width: 210px;
+  // height: 100%;
+  // max-width: 210px;
+  background-color: white;
+  margin-left: 10px;
+  .collapsable-content {
+    margin-top: 13px;
+  }
+  .nav-link {
+    color: black;
+    padding: 15px 15px 15px 12px;
+    &:hover,
+    &.active {
+      cursor: pointer;
+      background-color: white;
+      color: #ff3500;
+    }
+    &.disabled {
+      background-color: white;
+      color: #6c757d8c;
+      &:hover {
+        cursor: default;
+        background-color: white;;
+        color: #6c757d8c;
+      }
+    }
+    .navlink.nested {
+      padding-left: 15px
+    }
+    .nav-link-title {
+      font-family: $primary-font;
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: -5px;
+    }
+  }
+}
+
+
+.repo-list-header {
+  padding: 0 10px;
+  margin-bottom: 27px;
+  .title {
+    font-size: 20px;
+  }
+}

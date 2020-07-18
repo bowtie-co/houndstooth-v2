@@ -1,0 +1,147 @@
+@import './reset.scss';
+@import './variables.scss';
+@import './partials/float-label.scss';
+@import './environments/environments.scss';
+@import './ecosystems/_notifications.scss';
+@import './ecosystems/ecosystems.scss';
+@import './organisms/Header.scss';
+@import './organisms/Footer.scss';
+@import './organisms/Tabs.scss';
+@import './molecules/molecules';
+@import './atoms/buttons.scss';
+@import './atoms/atoms.scss';
+
+#root{
+  height: 100%;
+  font-size: $font-size-base;
+  font-weight: $primary-font-weight;
+  font-family: $primary-font, helvetica, sans-serif;
+  color: $primary-font-color;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.space-between {
+  // display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.justify-content-start {
+  justify-content: flex-start;
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.truncate-multi {
+  overflow: hidden;
+  position: relative;
+  line-height: 1.2em;
+  max-height: 3.6em;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+}
+.truncate-multi:before {
+  content: '...';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.truncate-multi:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background: white;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.ace_editor.file-editor {
+  height: 100%;
+  border: 1px solid #333333;
+	//height: calc(100% - 100px)!important;
+	min-height:400px;
+  // max-height: unset;
+}
+.no-staged, .staged, .commit-message {
+  margin: 1em 0;
+}
+.badge.badge-danger {
+  border-radius: 50%;
+}
+
+a {
+  color: $theme-primary-color !important;
+  &:hover {
+    color: $theme-blue-color !important;
+  }
+  text-decoration: none !important;
+}
+
+.page-item {
+  button.page-link {
+    color: #333;
+    background-color: #fff;
+  }
+
+  &.active {
+    button.page-link {
+      color: #fff;
+      background-color: #333;
+      border-color: #333;
+  }
+  }
+}
+
+// 691 1640

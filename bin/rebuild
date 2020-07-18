@@ -1,0 +1,4 @@
+#!/bin/bash
+
+bin/run "bin/clean"
+bin/run "bin/build"

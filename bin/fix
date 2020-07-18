@@ -1,0 +1,4 @@
+#!/bin/bash
+
+bin/run "bin/rebuild"
+bin/run "bin/lint-fix"
