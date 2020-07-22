@@ -1,32 +1,54 @@
+import { storage, injectPageProps } from '.';
 import {
-  storage
-} from '.';
-import {
-  injectPageProps
-} from '.';
-import {
-  PageHome,
-  PageNotFound,
-  // DocumentCreate
+  // AppHomePage,
+  AppNotFoundPage,
+  RepoAllPage,
+  RepoOnePage,
+  PullAllPage,
+  PullOnePage,
+  UserAllPage,
+  UserOnePage,
+  CollectionOnePage,
+  CollectionItemOnePage,
 } from '../pages';
 
 export const pageRoutes = {
-  '/': PageHome,
-  // '/:owner/:repo': RepoOne,
-  // '/:owner/:repo/pulls': PullAll,
-  // '/:owner/:repo/pulls/:num': PullOne,
-  // '/:owner/:repo/users': UserAll,
-  // '/:owner/:repo/users/:username': UserOne,
-  // '/:owner/:repo/collections': RepoOne,
-  // '/:owner/:repo/collections/:collection': CollectionOne,
-  // '/:owner/:repo/collections/:collection/:entry': CollectionItemOne,
-  '/*': PageNotFound
+  '/': RepoAllPage,
+  '/:owner/:repo': RepoOnePage,
+  '/:owner/:repo/pulls': PullAllPage,
+  '/:owner/:repo/pulls/:num': PullOnePage,
+  '/:owner/:repo/users': UserAllPage,
+  '/:owner/:repo/users/:username': UserOnePage,
+  '/:owner/:repo/collections': RepoOnePage,
+  '/:owner/:repo/collections/:collection': CollectionOnePage,
+  '/:owner/:repo/collections/:collection/:entry': CollectionItemOnePage,
+  '/*': AppNotFoundPage
 };
 
 export const routes = injectPageProps(pageRoutes, (props) => {
-  console.debug('routes.injectPageProps()', props);
+  const {
+    num,
+    repo,
+    owner,
+    entry,
+    docId,
+    subId,
+    username,
+    filepath,
+    collection
+  } = props;
 
-  const pageProps = { example: 'value' };
+  const pageProps = {
+    num,
+    repo,
+    owner,
+    entry,
+    docId,
+    subId,
+    username,
+    filepath,
+    collection
+  };
 
   storage.set('pageProps', pageProps);
 

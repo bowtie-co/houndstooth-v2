@@ -5,6 +5,9 @@ import { language } from '../../lib';
 export const WithApp = ({ children, ...props }) => {
   const [ lang, setLang ] = useState('en');
 
+  // TODO: Cleanup usage for deployed url detect (enhance with build/deploy api data)
+  const getDeployedUrl = (branch) => `${branch}.preview.example.com`.toLowerCase();
+
   const translate = useCallback((key) => {
     const data = language[lang];
     const parts = key.split('.');
@@ -30,6 +33,7 @@ export const WithApp = ({ children, ...props }) => {
     lang,
     setLang,
     translate,
+    getDeployedUrl,
   };
 
   return (

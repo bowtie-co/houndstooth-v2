@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './styles/index.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-import { routes, notifier, pubnub, storage } from './lib';
+import { api, auth, routes, notifier, pubnub, storage } from './lib';
 import { WithRoutes, WithErrorBoundary } from './ecosystems';
 
 const props = {
+  api,
+  auth,
   routes,
   notifier,
   pubnub,

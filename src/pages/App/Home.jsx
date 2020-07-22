@@ -2,7 +2,7 @@ import React from 'react';
 import { WithApp } from '../../ecosystems';
 import { DebugProps, AppHome } from '../../organisms';
 
-export const PageHome = (props) => {
+export const AppHomePage = (props) => {
   return (
     <WithApp {...props}>
       <AppHome />

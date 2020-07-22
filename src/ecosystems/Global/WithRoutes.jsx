@@ -1,10 +1,16 @@
 import React from 'react';
 import { useRoutes } from 'hookrouter';
-import { PageNotFound } from '../../pages';
+import { AppNotFoundPage } from '../../pages';
 
 export const WithRoutes = ({ children, ...props }) => {
-  // console.debug('WithRoutes', { children, routes });
-  const appRouteAction = useRoutes(props.routes);
+  const { auth, routes } = props;
 
-  return (typeof appRouteAction === 'function') ? appRouteAction(props) : <PageNotFound {...props} />;
+  const authRouteAction = useRoutes(auth.routes);
+  const appRouteAction = useRoutes(routes);
+
+  if (authRouteAction && typeof authRouteAction === 'function') {
+    return authRouteAction(props);
+  }
+
+  return (typeof appRouteAction === 'function') ? appRouteAction(props) : <AppNotFoundPage {...props} />;
 };
