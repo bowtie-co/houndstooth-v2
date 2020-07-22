@@ -203,9 +203,8 @@ div.Select-menu-outer {
   justify-content: center;
   align-items: center;
   .row {
-    color: #f3f3f3;
-    width: 450px;
-    background-color: $theme-primary-color;
+    width: 575px;
+    background-color: white;
     height: 406px;
     box-shadow:  2px 5px 14px -4px rgba(0, 0, 0, 0.50);
     .column-1 {
@@ -224,7 +223,7 @@ div.Select-menu-outer {
       padding: 5px 19px;
       border: none;
       color: white;
-      background-color: $theme-secondary-color;
+      background-color: #ff3500;
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -234,7 +233,7 @@ div.Select-menu-outer {
         padding: 5px 19px;
         border: none;
         color: white;
-        background-color: #b10a23;
+        background-color: #cc330b;
         border-radius: 4px;
         display: flex;
         align-items: center;

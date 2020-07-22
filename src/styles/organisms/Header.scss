@@ -1,14 +1,6 @@
 .top-nav-section {
   text-align: center;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.25);
-  z-index: 1;
-
-  a {
-    &:hover {
-      color: $theme-primary-color !important;
-    }
-  }
+  background-color: #333333;
 
   &.navbar {
     padding: 0 1rem 0 0;
@@ -16,10 +8,6 @@
 
   .badge {
     cursor: default;
-  }
-
-  .logout-btn {
-    margin-top: .3rem;
   }
 
   .form-group {

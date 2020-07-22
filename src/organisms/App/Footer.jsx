@@ -1,20 +1,17 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
+import moment from 'moment';
+import { AppIcon } from '../../atoms/App';
+import { BowtieLogo } from '../../atoms';
 
 export const AppFooter = ({ children, ...props }) => {
-  const { translate } = props;
+  // const { translate } = props;
 
   return (
     <section className='AppFooter footer-section'>
-      <Row className='text-center'>
-        <Col sm='12'>
-          <div className='mt-4'>
-            <span>{translate('footer.powered_by')}</span>
-            <br />
-            <span>{translate('footer.support_msg')} <a href='mailto:info@bowtie.co'>info@bowtie.co</a></span>
-          </div>
-        </Col>
-      </Row>
+      <BowtieLogo />
+      <div className='copyright'>Copyright Bowtie <AppIcon iconName='copyright' fill={false} />
+        {moment().year()}
+      </div>
     </section>
   );
 };

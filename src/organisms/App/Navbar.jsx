@@ -22,13 +22,13 @@ export const AppNavbar = ({ children, ...props }) => {
   return (
     <Navbar className='AppNavbar top-nav-section' expand="md">
       <NavbarBrand href={'/'}>
-        <HoundstoothLogo size='sm' />
+        <HoundstoothLogo size='md' color='white' />
       </NavbarBrand>
 
       <NavbarToggler onClick={toggleNav} />
 
       {repo && (
-        <Nav className="m-auto" navbar>
+        <Nav className="m-auto nav-bar" navbar>
           <NavItem>
             <NavLink title={getDeployedUrl(branch)} href={'//' + getDeployedUrl(branch)} target='_blank' rel='noopener noreferrer'>
               {/* TODO: Handle status failed state? */}
@@ -85,7 +85,7 @@ export const AppNavbar = ({ children, ...props }) => {
 
       {/* TODO: How to better structure the layout + collapse for better mobile UX? */}
       <Collapse isOpen={isNavOpen} navbar>
-        <Nav className="ml-auto" navbar>
+        <Nav className="ml-auto nav-bar" navbar>
           {languages.map((l, i) => (
             <NavItem key={i}>
               <NavLink title={('general.edit')} onClick={() => setLang(l)}>
@@ -98,7 +98,7 @@ export const AppNavbar = ({ children, ...props }) => {
           {repo && (
             <NavItem>
               <NavLink title={repo.full_name} href={repo.html_url} target='_blank' rel='noopener noreferrer'>
-                <AppIcon className='fab fa-github' color='#07102c' size='md' />
+                <AppIcon className='fab fa-github' color='white' size='md' />
               </NavLink>
             </NavItem>
           )}
