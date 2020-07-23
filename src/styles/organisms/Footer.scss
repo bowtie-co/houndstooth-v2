@@ -1,39 +1,18 @@
 
 
 .footer-section{
-  // background-image: url(../../images/HT_footer_background.jpg);
-  background-color: $theme-primary-color;
+  background-image: url(../../images/HT_footer_background.jpg);
+  background-color: #333333;
   min-height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px 15px;
-  color: $theme-off-white-color;
-  font-size: .85rem;
-
-  a {
-    color: $theme-off-white-color !important;
-    &:hover {
-      color: $theme-gray-color !important;
-    }
-  }
+  color: white;
 
   img.logo-md {
-    // max-height: 30px;
+    max-height: 30px;
     margin: 10px 20px;
-    padding-bottom: .5rem;
-    border-bottom: 1px solid $theme-off-white-color;
-  }
-
-  .footer-logo {
-    margin-top: -3rem;
-  }
-
-  .row {
-    width: 100%;
-    .col {
-      text-align: center;
-    }
   }
 }

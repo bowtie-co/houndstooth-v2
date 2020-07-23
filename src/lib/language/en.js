@@ -41,6 +41,7 @@ export const en = {
     submit_title: 'Submit changes for approval.',
     update_title: 'Update changes for approval.',
     pending_title: 'Change(s) pending approval.',
+    change_language: 'Change Language',
     login: 'Login with',
     logout: 'Logout'
   },

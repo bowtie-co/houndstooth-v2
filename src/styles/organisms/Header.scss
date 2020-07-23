@@ -1,14 +1,7 @@
 .top-nav-section {
   text-align: center;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.25);
+  background-color: #333333;
   z-index: 1;
-
-  a {
-    &:hover {
-      color: $theme-primary-color !important;
-    }
-  }
 
   &.navbar {
     padding: 0 1rem 0 0;
@@ -16,10 +9,6 @@
 
   .badge {
     cursor: default;
-  }
-
-  .logout-btn {
-    margin-top: .3rem;
   }
 
   .form-group {
@@ -48,7 +37,7 @@
     flex-grow: 1;
     padding: 10px;
     .nav-link{
-      width: 90px;
+      // width: 90px;
       height: 100%;
       text-decoration: none;
       cursor: pointer;
@@ -84,6 +73,17 @@
       &:focus{
         box-shadow: transparent;
       }
+    }
+  }
+
+  .btn {
+    background: none;
+    border-color: white;
+    color: white;
+    &:hover {
+      background: none;
+      border-color: white !important;
+      color: white !important;
     }
   }
 }
@@ -149,7 +149,7 @@
     &.active {
       cursor: pointer;
       background-color: white;
-      color: #ff3500;
+      color: $theme-orange-color;
     }
     &.disabled {
       background-color: white;
