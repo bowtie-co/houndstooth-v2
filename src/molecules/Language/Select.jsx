@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  UncontrolledButtonDropdown
 } from 'reactstrap';
 import { AppIcon } from '../../atoms';
 
@@ -11,11 +11,8 @@ import { AppIcon } from '../../atoms';
 export const LanguageSelect = ({ ...props }) => {
   const { languages, lang, setLang, translate } = props;
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-
   return (
-    <ButtonDropdown className='LanguageSelect pr-1' title={translate('navbar.change_language')} direction='down' isOpen={dropdownOpen} toggle={toggleDropdown} size='sm'>
+    <UncontrolledButtonDropdown className='LanguageSelect pr-1' title={translate('navbar.change_language')} direction='down' size='sm'>
       <DropdownToggle className='dropdown-btn'>
         <AppIcon className='fa fa-flag-o' size='md' />
       </DropdownToggle>
@@ -26,6 +23,6 @@ export const LanguageSelect = ({ ...props }) => {
           </DropdownItem>
         ))}
       </DropdownMenu>
-    </ButtonDropdown>
+    </UncontrolledButtonDropdown>
   );
 };
