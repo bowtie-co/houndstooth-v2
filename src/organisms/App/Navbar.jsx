@@ -8,16 +8,21 @@ import {
   Navbar,
   NavbarToggler,
   NavbarBrand,
-  Badge
+  Badge,
 } from 'reactstrap';
 import { HoundstoothLogo, AppIcon, AppButton } from '../../atoms';
+import { LanguageSelect } from '../../molecules';
 
 export const AppNavbar = ({ children, ...props }) => {
-  const { auth, languages, lang, setLang, translate } = props;
+  const { auth, languages, translate } = props;
   const { user, repo, branch, openPull, isBranchBuilding, isPullPending, submitChanges, getDeployedUrl, pulls } = props;
 
   const [ isNavOpen, setIsNavOpen ] = useState(false);
   const toggleNav = () => setIsNavOpen(prevState => !prevState);
+
+  // const [dropdownOpen, setOpen] = useState(false);
+
+  // const toggleLang = () => setOpen(!dropdownOpen);
 
   return (
     <Navbar className='AppNavbar top-nav-section' expand="md">
@@ -39,9 +44,9 @@ export const AppNavbar = ({ children, ...props }) => {
                   <BarLoader />
                 </span>
               ) : (
-                <AppButton size='xs' color='info'>
-                  {translate('navbar.preview')} <AppIcon iconName='external-link-alt' />
-                </AppButton>
+                <span>
+                  <AppIcon className='fa fa-eye' size='md' title={translate('navbar.preview')} />
+                </span>
               )}
             </NavLink>
           </NavItem>
@@ -86,15 +91,10 @@ export const AppNavbar = ({ children, ...props }) => {
       {/* TODO: How to better structure the layout + collapse for better mobile UX? */}
       <Collapse isOpen={isNavOpen} navbar>
         <Nav className="ml-auto nav-bar" navbar>
-          {languages.map((l, i) => (
-            <NavItem key={i}>
-              <NavLink title={('general.edit')} onClick={() => setLang(l)}>
-                <Badge pill color={l === lang ? 'success' : 'warning'}>
-                  {l}
-                </Badge>
-              </NavLink>
-            </NavItem>
-          ))}
+          {languages.length > 1 && (
+            <LanguageSelect {...props} />
+          )}
+
           {repo && (
             <NavItem>
               <NavLink title={repo.full_name} href={repo.html_url} target='_blank' rel='noopener noreferrer'>
@@ -106,7 +106,7 @@ export const AppNavbar = ({ children, ...props }) => {
           {user && (
             <NavItem>
               <NavLink onClick={() => auth.logout()} href='/' className='logout-btn'>
-                {translate('navbar.logout')}
+                <AppIcon className='fa fa-sign-out' size='sm' title={translate('navbar.logout')} />
                 {/* <br />
                 ({user.login}) */}
               </NavLink>

@@ -39,6 +39,7 @@ export const es = {
     submit_title: 'Someter cambios a aprobar.',
     update_title: 'Actualizar cambios a aprobar.',
     pending_title: 'Cambio(s) pendiente(s) aprobación.',
+    change_language: 'Cambiar Idioma',
     login: 'Iniciar con',
     logout: 'Salir'
   },

@@ -14,7 +14,7 @@ $btn-border-radius-small: $border-radius-small !default;
 
 $btn-default-color: #333 !default;
 $btn-default-bg: #fff !default;
-$btn-default-border: #ff3500 !default;
+$btn-default-border: $theme-orange-color !default;
 
 $btn-success-color: #fff !default;
 $btn-success-bg: $theme-success-color !default;
@@ -119,31 +119,31 @@ button.btn {
       color: $theme-primary-color;
       background-color: white;
     }
-    // &.btn-secondary {
-    // }
+    &.btn-secondary {
+      &:hover {
+        color: $theme-secondary-color;
+        border-color: $theme-secondary-color;
+      }
+    }
     &.btn-success {
-      // color: $theme-success-color;
       &:hover {
         color: $theme-success-color;
         border-color: $theme-success-color;
       }
     }
     &.btn-info {
-      // color: $theme-info-color;
       &:hover {
         color: $theme-info-color;
         border-color: $theme-info-color;
       }
     }
     &.btn-warning {
-      // color: $theme-warning-color;
       &:hover {
         color: $theme-warning-color;
         border-color: $theme-warning-color;
       }
     }
     &.btn-danger {
-      // color: $theme-danger-color;
       &:hover {
         color: $theme-danger-color;
         border-color: $theme-danger-color;

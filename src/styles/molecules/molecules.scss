@@ -153,8 +153,8 @@ div.SingleDatePicker_picker {
     }
     &:hover{
       background-position: 0 -100%;
-      color:#ff3500;
-      border:1px solid #ff3500;
+      color: $theme-orange-color;
+      border:1px solid $theme-orange-color;
       cursor: pointer;
     }
     .btn-upload {
@@ -223,7 +223,7 @@ div.Select-menu-outer {
       padding: 5px 19px;
       border: none;
       color: white;
-      background-color: #ff3500;
+      background-color: $theme-orange-color;
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -293,4 +293,29 @@ div.Select-menu-outer {
 
 div.DateInput__block {
   width: 99%;
+}
+
+.LanguageSelect {
+  .dropdown-btn {
+    border: none !important;
+    &:active, &:focus, &:hover {
+      border: none !important;
+      background: none !important;
+      box-shadow: none !important;
+    }
+  }
+  .dropdown-menu {
+    min-width: 0;
+  }
+  .dropdown-item {
+    border: none;
+    &:disabled {
+      color: $theme-orange-color;
+    }
+    &:active, &:focus, &:hover {
+      background: #eaeaea;
+      color: $theme-primary-color;
+      border: none !important;
+    }
+  }
 }

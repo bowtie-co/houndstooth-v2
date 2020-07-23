@@ -1,6 +1,7 @@
 .top-nav-section {
   text-align: center;
   background-color: #333333;
+  z-index: 1;
 
   &.navbar {
     padding: 0 1rem 0 0;
@@ -36,7 +37,7 @@
     flex-grow: 1;
     padding: 10px;
     .nav-link{
-      width: 90px;
+      // width: 90px;
       height: 100%;
       text-decoration: none;
       cursor: pointer;
@@ -72,6 +73,17 @@
       &:focus{
         box-shadow: transparent;
       }
+    }
+  }
+
+  .btn {
+    background: none;
+    border-color: white;
+    color: white;
+    &:hover {
+      background: none;
+      border-color: white !important;
+      color: white !important;
     }
   }
 }
@@ -137,7 +149,7 @@
     &.active {
       cursor: pointer;
       background-color: white;
-      color: #ff3500;
+      color: $theme-orange-color;
     }
     &.disabled {
       background-color: white;

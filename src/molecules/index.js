@@ -9,4 +9,5 @@ export * from './Select';
 export * from './Collection';
 export * from './CollectionItem';
 export * from './Form';
+export * from './Language';
 export * from './Repo';
