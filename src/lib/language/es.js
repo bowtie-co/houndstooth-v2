@@ -45,12 +45,15 @@ export const es = {
     logout: 'Salir'
   },
   sidebar: {
-    repos: 'Depósitos',
+    repos: 'Repositorios',
     users: 'Usuarios',
     changes: 'Cambios',
     documents: 'Documentos',
     collections: 'Colecciones',
     submissions: 'Formularios'
+  },
+  repos: {
+    list_title: '¡Bienvenido! Por favor seleccione un repositorio.'
   },
   collections: {
     entry_name: 'Nombre',
@@ -66,7 +69,7 @@ export const es = {
     name: 'Nombre',
     preview: 'Vista Previa',
     status: 'Estado',
-    empty_state: 'No hay usuarios para este depósito.'
+    empty_state: 'No hay usuarios para este repositorio.'
   },
   documents: {
     download: 'Ver/Bajar',
@@ -106,7 +109,7 @@ export const es = {
     approve: 'Aprobar',
     approved: 'Aprobado',
     deny: 'Negar',
-    empty_state: 'No hay cambios pendientes para este depósito.',
+    empty_state: 'No hay cambios pendientes para este repositorio.',
     pr_pending_title: '[PENDIENTE] Cambios de:',
     pr_pending_body: 'Pendiente cambios de:',
     pr_ready_title: '[LISTO] Cambios de:'

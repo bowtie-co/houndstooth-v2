@@ -54,6 +54,9 @@ export const en = {
     collections: 'Collections',
     submissions: 'Reports'
   },
+  repos: {
+    list_title: 'Welcome! Please select a repository.'
+  },
   collections: {
     entry_name: 'Name',
     empty_state: 'Not found.'

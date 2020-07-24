@@ -4,10 +4,12 @@ import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap';
 import { AppAvatar, AppIcon, AppLastUpdated, AppSummary, AppTitle } from '../../atoms';
 
 export const RepoCards = ({ repos, ...props }) => {
+  const { translate } = props;
+
   return (
     <section className='RepoCards'>
       <div className='repo-list-header flex-row space-between'>
-        <AppTitle>Welcome! Please select a repository.</AppTitle>
+        <AppTitle>{translate('repos.list_title')}</AppTitle>
         <div>
           <AppIcon iconName='sync-alt' size='sm' />
           {/* TODO: @Brennan - enable `reloadReposAndBranches` logic (first set up local storage) */}
