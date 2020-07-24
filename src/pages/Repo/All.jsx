@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTitle } from 'hookrouter';
-import { WithApp, WithGithubAuth, WithGithubRepos } from '../../ecosystems';
+import { WithApp, WithGithubAuth } from '../../ecosystems';
 import { RepoCards } from '../../organisms';
 
 export const RepoAllPage = ({ children, ...props }) => {
@@ -8,11 +8,9 @@ export const RepoAllPage = ({ children, ...props }) => {
 
   return (
     <WithGithubAuth {...props}>
-      <WithGithubRepos>
-        <WithApp>
-          <RepoCards />
-        </WithApp>
-      </WithGithubRepos>
+      <WithApp>
+        <RepoCards />
+      </WithApp>
     </WithGithubAuth>
   );
 };

@@ -5,9 +5,9 @@ import {
 } from '../';
 
 export const WithGithubRepos = ({ children, ...props }) => {
-  // console.debug('WithGithubRepos', { children, props });
+  console.debug('WithGithubRepos', { children, props });
 
-  const [ repos, setRepos ] = useState();
+  const [ repos, setRepos ] = useState([]);
   const [ loading, setLoading ] = useState(true);
   const { github } = props;
 
@@ -24,7 +24,7 @@ export const WithGithubRepos = ({ children, ...props }) => {
   }, [ github ]);
 
   return (
-    <WithLoader isLoading={loading}>
+    <WithLoader isLoading={loading} defer>
       <WithChildren children={children} {...props} {...{ repos }} />
     </WithLoader>
   );

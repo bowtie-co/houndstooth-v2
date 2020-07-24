@@ -14,6 +14,7 @@ export const es = {
     select: 'Seleccionar',
     building: 'Construyendo',
     deploying: 'Desplegando',
+    loading: 'Cargando',
     last_updated: 'Última actualización',
     form_data: 'Form Data',
     date_format: 'DD/MM/AAAA',
@@ -53,7 +54,8 @@ export const es = {
     submissions: 'Formularios'
   },
   repos: {
-    list_title: '¡Bienvenido! Por favor seleccione un repositorio.'
+    list_title: '¡Bienvenido! Por favor seleccione un repositorio.',
+    select: 'Seleccione Repositorio'
   },
   collections: {
     entry_name: 'Nombre',

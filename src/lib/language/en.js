@@ -15,6 +15,7 @@ export const en = {
     select: 'Select',
     building: 'Building',
     deploying: 'Deploying',
+    loading: 'Loading',
     existing: 'Existing',
     last_updated: 'Last updated',
     form_data: 'Form Data',
@@ -55,7 +56,8 @@ export const en = {
     submissions: 'Reports'
   },
   repos: {
-    list_title: 'Welcome! Please select a repository.'
+    list_title: 'Welcome! Please select a repository.',
+    select: 'Select Repo'
   },
   collections: {
     entry_name: 'Name',

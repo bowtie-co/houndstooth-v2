@@ -11,7 +11,7 @@ import {
 export const SelectButton = (props) => {
   const { title = 'Select', options = [], color = 'primary', size = 'md', dir = 'left', caret = true, blank = false, disabled = false } = props;
 
-  // console.debug('SelectButton', { title, options, color, dir, caret, props });
+  // console.debug('SelectButton', { title, options, color, size, dir, caret, props });
 
   const optsMap = (options) => options.map(opt => typeof opt === 'string' ? ({ text: opt, href: opt }) : opt);
 

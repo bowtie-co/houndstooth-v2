@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { auth, storage } from '../../lib';
-import { WithGithub, WithGithubUser, WithChildren } from '../';
+import { WithGithub, WithGithubRepos, WithGithubUser, WithChildren } from '../';
 import { LoginGithub } from '../../organisms';
 
 export const WithGithubAuth = ({ children, ...props }) => {
@@ -26,7 +26,9 @@ export const WithGithubAuth = ({ children, ...props }) => {
     ) : (
       <WithGithub {...props} {...{ token, isAuthorized, location }}>
         <WithGithubUser>
-          <WithChildren children={children} />
+          <WithGithubRepos>
+            <WithChildren children={children} />
+          </WithGithubRepos>
         </WithGithubUser>
       </WithGithub>
     )
