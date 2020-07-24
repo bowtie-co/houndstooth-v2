@@ -1,22 +1,40 @@
 import React from 'react';
 import { navigate } from 'hookrouter';
-import { Row, Col, Card, CardImg, CardBody, CardTitle } from 'reactstrap';
-import { AppButton } from '../../atoms';
+import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap';
+import { AppAvatar, AppIcon, AppLastUpdated, AppSummary, AppTitle } from '../../atoms';
 
-export const RepoCards = ({ repos }) => {
+export const RepoCards = ({ repos, ...props }) => {
+  const { translate } = props;
+
   return (
-    <Row>
-      {repos.map((repo, index) => (
-        <Col sm='6' md='4' lg='3' xl='2' key={index}>
-          <Card>
-            <CardImg top width="100%" src={repo.owner.avatar_url} alt={repo.owner.login} />
-            <CardBody>
+    <section className='RepoCards'>
+      <div className='repo-list-header flex-row space-between'>
+        <AppTitle>{translate('repos.list_title')}</AppTitle>
+        <div>
+          <AppIcon iconName='sync-alt' size='sm' />
+          {/* TODO: @Brennan - enable `reloadReposAndBranches` logic (first set up local storage) */}
+          {/* <AppIcon iconName='sync-alt' size='sm' onClick={reloadReposAndBranches} /> */}
+        </div>
+      </div>
+      <Row>
+        {repos.map((repo, index) => (
+          <Col lg='6' xl='4' key={index} className='list-item'>
+            <Card className='repo-card' onClick={() => navigate(`/${repo.full_name}`)}>
               <CardTitle>{repo.name}</CardTitle>
-              <AppButton block onClick={() => navigate(`/${repo.full_name}`)}>Select</AppButton>
-            </CardBody>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+              <CardBody>
+                <div className='flex-row align-center'>
+                  <AppAvatar owner={repo.owner} />
+                  <div className='repo-name'>{repo.owner.login}</div>
+                </div>
+                <AppSummary>
+                  <div className='truncate-multi'>{repo.description || 'N/A'}</div>
+                </AppSummary>
+                <AppLastUpdated time={repo.updated_at} {...props} />
+              </CardBody>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </section>
   );
 };
