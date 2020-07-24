@@ -11,11 +11,11 @@ import {
   Badge,
 } from 'reactstrap';
 import { HoundstoothLogo, AppIcon, AppButton } from '../../atoms';
-import { LanguageSelect } from '../../molecules';
+import { LanguageSelect, RepoSelector } from '../../molecules';
 
 export const AppNavbar = ({ children, ...props }) => {
   const { auth, languages, translate } = props;
-  const { user, repo, branch, openPull, isBranchBuilding, isPullPending, submitChanges, getDeployedUrl, pulls } = props;
+  const { user, repos, repo, branch, openPull, isBranchBuilding, isPullPending, submitChanges, getDeployedUrl, pulls } = props;
 
   const [ isNavOpen, setIsNavOpen ] = useState(false);
   const toggleNav = () => setIsNavOpen(prevState => !prevState);
@@ -31,6 +31,12 @@ export const AppNavbar = ({ children, ...props }) => {
       </NavbarBrand>
 
       <NavbarToggler onClick={toggleNav} />
+
+      {repos && (
+        <Nav className="m-auto nav-bar" navbar>
+          <RepoSelector {...props} />
+        </Nav>
+      )}
 
       {repo && (
         <Nav className="m-auto nav-bar" navbar>
