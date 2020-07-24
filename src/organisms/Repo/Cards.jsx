@@ -10,7 +10,7 @@ export const RepoCards = ({ repos, ...props }) => {
         <AppTitle>Welcome! Please select a repository.</AppTitle>
         <div>
           <AppIcon iconName='sync-alt' size='sm' />
-          {/* TODO: @Brennan - enable `reloadReposAndBranches` logic (set up local storage) */}
+          {/* TODO: @Brennan - enable `reloadReposAndBranches` logic (first set up local storage) */}
           {/* <AppIcon iconName='sync-alt' size='sm' onClick={reloadReposAndBranches} /> */}
         </div>
       </div>
