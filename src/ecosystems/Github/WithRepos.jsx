@@ -14,8 +14,7 @@ export const WithGithubRepos = ({ children, ...props }) => {
   useEffect(() => {
     setLoading(true);
 
-    // TODO: @Brennan - remove temporary arguments
-    github.repos({affiliation: 'owner', visibility: 'private'}).then(data => {
+    github.repos().then(data => {
       setRepos(data);
       setLoading(false);
     }).catch(err => {
