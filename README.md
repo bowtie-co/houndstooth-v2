@@ -1,2 +1,2 @@
 # template-react
-React Template
+Houndstooth
