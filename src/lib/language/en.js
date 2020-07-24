@@ -16,6 +16,7 @@ export const en = {
     building: 'Building',
     deploying: 'Deploying',
     existing: 'Existing',
+    last_updated: 'Last updated',
     form_data: 'Form Data',
     date_format: 'MM/DD/YYYY',
     email: 'Email',
@@ -26,7 +27,7 @@ export const en = {
     home: 'Home',
     welcome: 'Welcome',
     not_found: 'Not Found',
-    oops: 'Oops'
+    oops: 'Oops',
   },
   permissions: {
     admin: 'Admin',
@@ -103,7 +104,6 @@ export const en = {
     title: 'Title',
     user: 'User',
     preview: 'Preview',
-    last_updated: 'Last Updated',
     actions: 'Actions',
     approve: 'Approve',
     approved: 'Aprobado',

@@ -20,7 +20,7 @@ export const PullList = ({ pulls, ...props }) => {
                 <th>{translate('changes.title')}</th>
                 <th>{translate('changes.user')}</th>
                 <th>{translate('changes.preview')}</th>
-                <th>{translate('changes.last_updated')}</th>
+                <th>{translate('general.last_updated')}</th>
                 <th>{translate('changes.actions')}</th>
               </tr>
             </thead>

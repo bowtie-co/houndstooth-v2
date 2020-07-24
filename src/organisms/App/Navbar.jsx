@@ -45,7 +45,7 @@ export const AppNavbar = ({ children, ...props }) => {
                 </span>
               ) : (
                 <span>
-                  <AppIcon className='fa fa-eye' size='md' title={translate('navbar.preview')} />
+                  <AppIcon className='fa fa-eye' size='sm' title={translate('navbar.preview')} />
                 </span>
               )}
             </NavLink>
@@ -98,7 +98,7 @@ export const AppNavbar = ({ children, ...props }) => {
           {repo && (
             <NavItem>
               <NavLink title={repo.full_name} href={repo.html_url} target='_blank' rel='noopener noreferrer'>
-                <AppIcon className='fab fa-github' color='white' size='md' />
+                <AppIcon className='fab fa-github' color='white' size='sm' />
               </NavLink>
             </NavItem>
           )}
