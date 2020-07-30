@@ -1,31 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { storage } from '../../lib';
 import {
-  WithLoader,
+  // WithLoader,
   WithChildren,
 } from '../';
 
 export const WithGithubRepos = ({ children, ...props }) => {
-  // console.debug('WithGithubRepos', { children, props });
+  console.debug('WithGithubRepos', { children, props });
 
-  const [ repos, setRepos ] = useState();
+  const [ repos, setRepos ] = useState(storage.get('all_repos') || []);
   const [ loading, setLoading ] = useState(true);
   const { github } = props;
 
-  useEffect(() => {
-    setLoading(true);
+  const loadRepos = useCallback((force = false) => {
+    console.log('loadRepos()', repos);
+    if (!repos.length || force) {
+      setLoading(true);
 
-    github.repos().then(data => {
-      setRepos(data);
+      github.repos({sort: 'updated'}).then(results => {
+        const flattenedRepos = [];
+        results.forEach(result => {
+          const { id, default_branch, description, full_name, name, owner, updated_at } = result;
+          flattenedRepos.push(Object.assign({}, {
+            id, default_branch, description, full_name, name, owner, updated_at
+          }));
+        });
+        storage.set('all_repos', flattenedRepos);
+        setRepos(flattenedRepos);
+        setLoading(false);
+      }).catch(err => {
+        console.warn(err);
+        setLoading(false);
+      });
+    } else {
       setLoading(false);
-    }).catch(err => {
-      console.warn(err);
-      setLoading(false);
-    });
-  }, [ github ]);
+    }
+  }, [ github, repos ]);
+
+  const reloadRepos = useCallback(() => {
+    storage.remove('all_repos');
+    setRepos([]);
+  }, [ setRepos ])
+
+  useEffect(() => {
+    loadRepos();
+  }, [ loadRepos ]);
 
   return (
-    <WithLoader isLoading={loading}>
-      <WithChildren children={children} {...props} {...{ repos }} />
-    </WithLoader>
+    // <WithLoader isLoading={loading} defer>
+      <WithChildren children={children} {...props} {...{ repos, reloadRepos, reposLoading: loading }} />
+    // </WithLoader>
   );
 };

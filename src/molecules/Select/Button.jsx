@@ -9,14 +9,14 @@ import {
 } from 'reactstrap';
 
 export const SelectButton = (props) => {
-  const { title = 'Select', options = [], color = 'primary', dir = 'left', caret = true, blank = false, disabled = false } = props;
+  const { title = 'Select', options = [], color = 'primary', size = 'md', dir = 'left', caret = true, blank = false, disabled = false } = props;
 
-  // console.debug('SelectButton', { title, options, color, dir, caret, props });
+  // console.debug('SelectButton', { title, options, color, size, dir, caret, props });
 
   const optsMap = (options) => options.map(opt => typeof opt === 'string' ? ({ text: opt, href: opt }) : opt);
 
   return (
-    <UncontrolledButtonDropdown disabled={disabled} direction={dir} color={color}>
+    <UncontrolledButtonDropdown disabled={disabled} direction={dir} color={color} size={size}>
       <DropdownToggle color={color} caret={caret}>
         {title}
         &nbsp;

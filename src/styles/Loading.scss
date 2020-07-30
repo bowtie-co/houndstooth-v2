@@ -12,6 +12,12 @@
   background-color: #fefefe;
   z-index: 30000;
   opacity: 0.75;
+
+  &.loader-non-blocking {
+    position: relative;
+    opacity: 1;
+    height: 30vh;
+  }
 }
 
 .loaderimg {

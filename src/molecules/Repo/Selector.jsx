@@ -14,7 +14,7 @@ export const RepoSelector = ({ repos = [], repo, ...props }) => {
   }, [ repos ]);
 
   return repos.length > 0 ? (
-    <SelectButton title={repo || 'Select Repo'} options={repoSelectOptions()} />
+    <SelectButton title={repo || 'Select Repo'} options={repoSelectOptions()} size='sm' />
   ) : (
     <Fragment />
   );
