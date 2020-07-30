@@ -160,7 +160,8 @@ export const WithCollectionItem = ({ children, ...props }) => {
 
     github.deleteFile(deleteParams).then(resp => {
       // console.log('WithCollectionItem.deleteItem() - File deleted', { sha, path, resp });
-      notifier.success(translate('notify.item_deleted'));
+      // TODO: Failure here with "translate is not a function" ... missing from parent ecosystem/props?
+      // notifier.success(translate('notify.item_deleted'));
 
       makePullPending(openPull, (err, pull) => {
         if (err) console.warn(err);
