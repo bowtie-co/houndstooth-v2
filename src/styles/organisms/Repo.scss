@@ -1,5 +1,12 @@
 .RepoCards {
+  .list-item {
+    margin: 10px 0;
+  }
   .repo-card {
     cursor: pointer;
+    height: 100%;
+    .card-body {
+      padding: 0.5rem 1.25rem;
+    }
   }
 }

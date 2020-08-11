@@ -14,7 +14,7 @@ export const AppLastUpdated = ({ time, ...props }) => {
   }, [ lang, time ]);
 
   return (
-    <p>{translate('general.last_updated')}: {fromNow}</p>
+    <p class="AppLastUpdated small">{translate('general.last_updated')}: {fromNow}</p>
   );
 };
 

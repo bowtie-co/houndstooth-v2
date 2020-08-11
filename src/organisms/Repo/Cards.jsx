@@ -20,13 +20,13 @@ export const RepoCards = ({ repos, ...props }) => {
       <WithLoader isLoading={reposLoading} nonBlocking={true}>
         <Row>
           {repos.map((repo, index) => (
-            <Col lg='6' xl='4' key={index} className='list-item'>
+            <Col md='6' lg='4' xl='3' key={index} className='list-item'>
               <Card className='repo-card' onClick={() => navigate(`/${repo.full_name}`)}>
                 <CardTitle>{repo.name}</CardTitle>
                 <CardBody>
                   <div className='flex-row align-center'>
                     <AppAvatar owner={repo.owner} />
-                    <div className='repo-name'>{repo.owner.login}</div>
+                    <div className='repo-name truncate'>{repo.owner.login}</div>
                   </div>
                   <AppSummary>
                     <div className='truncate-multi'>{repo.description || 'N/A'}</div>
