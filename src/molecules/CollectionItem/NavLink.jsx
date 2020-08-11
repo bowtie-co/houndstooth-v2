@@ -16,7 +16,9 @@ export const CollectionItemNavLink = ({ item, ...props }) => {
   return (
     <NavLink className='CollectionItemNavLink' {...{ href, active }}>
       <AppIcon iconName={'file-alt'} fill={false} />
-      <span>{friendlyName(name)}</span>
+      <div className={'nav-text'}>
+        <span>{friendlyName(name)}</span>
+      </div>
     </NavLink>
   );
 };

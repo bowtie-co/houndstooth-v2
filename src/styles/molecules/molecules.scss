@@ -1,5 +1,30 @@
-table.formData {
-  
+.CollectionNavLink {
+  .nav-group {
+    display: flex !important;
+    align-items: baseline;
+    .nav-text {
+      overflow-wrap: anywhere;
+    }
+  }
+}
+
+.CollectionNavLink, .CollectionItemLink {
+  padding: 8px 0 8px 10px !important;
+}
+
+.CollectionItemNav {
+  font-size: 95%;
+  a {
+    padding: 8px 0 8px 10px !important;
+  }
+}
+
+.CollectionItemNavLink {
+  display: flex !important;
+  align-items: baseline;
+  .nav-text {
+    overflow-wrap: anywhere;
+  }
 }
 
 .list-item {
@@ -297,11 +322,16 @@ div.DateInput__block {
 
 .LanguageSelect {
   .dropdown-btn {
+    padding-top: 0.5rem !important;
     border: none !important;
+    text-transform: none;
     &:active, &:focus, &:hover {
       border: none !important;
       background: none !important;
       box-shadow: none !important;
+    }
+    .small {
+      font-size: 97%;
     }
   }
   .dropdown-menu {
@@ -324,4 +354,5 @@ div.DateInput__block {
 .RepoSelect {
   text-align: left;
   white-space: nowrap;
+  width: 100%;
 }

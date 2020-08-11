@@ -15,8 +15,13 @@ export const CollectionNavLink = ({ name, config, ...props }) => {
 
   return (
     <NavLink className='CollectionNavLink' {...{ href, active }}>
-      <AppIcon iconName={icon} fill={false} />
-      <span>{label}</span>
+      <div className={'nav-group'}>
+        <AppIcon iconName={icon} fill={false} />
+        <div className={'nav-text'}>
+          <span>{label}</span>
+        </div>
+      </div>
+      {/* <span>{label}</span> */}
       {active && entries && <CollectionItemNav {...props} />}
     </NavLink>
   );

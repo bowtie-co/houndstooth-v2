@@ -43,9 +43,10 @@ export const en = {
     submit_title: 'Submit changes for approval.',
     update_title: 'Update changes for approval.',
     pending_title: 'Change(s) pending approval.',
-    change_language: 'Change Language',
+    language: 'Language',
+    source: 'Source',
     login: 'Login with',
-    logout: 'Logout'
+    exit: 'Exit'
   },
   sidebar: {
     repos: 'Repos',
