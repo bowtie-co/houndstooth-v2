@@ -36,6 +36,9 @@
     width: 100%;
     flex-grow: 1;
     padding: 10px;
+    &.nav-bar-left {
+      justify-content: flex-start;
+    }
     .nav-link{
       // width: 90px;
       height: 100%;

@@ -2,7 +2,7 @@
 .avatar {
 	height: 45px;
 	border-radius: 50%;
-	margin: 8px 25px;
+	margin: 0.75rem;
 	margin-left: 0;
 }
 
@@ -16,7 +16,8 @@
 	font-weight: 300 !important;
 	.card-title, h5.card-title {
 		flex: 1 1 auto;
-		padding: .5rem 1rem;
+		padding: .5rem 1rem 0 1rem;
+		margin-bottom: 0;
 		font-size: 1.1em;
 		background-color: #f0f0f0;
 		font-weight: 400;
@@ -27,7 +28,11 @@
 }
 
 .summary {
-	min-height: 60px;
+	margin-bottom: 1em;
+}
+
+.AppLastUpdated {
+	margin-bottom: 0;
 }
 
 

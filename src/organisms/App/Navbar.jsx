@@ -31,8 +31,8 @@ export const AppNavbar = ({ children, ...props }) => {
       <NavbarToggler onClick={toggleNav} />
 
       {repos && (
-        <Nav className="m-auto nav-bar row" navbar>
-          <RepoSelect className='col-12 col-sm-9 col-md-12' {...props} />
+        <Nav className="m-auto nav-bar nav-bar-left" navbar>
+          <RepoSelect className='' {...props} />
         </Nav>
       )}
 
@@ -48,9 +48,10 @@ export const AppNavbar = ({ children, ...props }) => {
                   <BarLoader />
                 </span>
               ) : (
-                <span>
-                  <AppIcon className='fa fa-eye' size='sm' title={translate('navbar.preview')} />
-                </span>
+                <section>
+                  <AppIcon className='fa fa-eye' size='sm' />
+                  <div class="small">{translate('navbar.preview')}</div>
+                </section>
               )}
             </NavLink>
           </NavItem>
@@ -101,8 +102,11 @@ export const AppNavbar = ({ children, ...props }) => {
 
           {repo && (
             <NavItem>
-              <NavLink title={repo.full_name} href={repo.html_url} target='_blank' rel='noopener noreferrer'>
-                <AppIcon className='fab fa-github' color='white' size='sm' />
+              <NavLink href={repo.html_url} target='_blank' rel='noopener noreferrer'>
+                <section>
+                  <AppIcon className='fab fa-github' color='white' size='sm' />
+                  <div class="small">{translate('navbar.source')}</div>
+                </section>
               </NavLink>
             </NavItem>
           )}
@@ -110,9 +114,10 @@ export const AppNavbar = ({ children, ...props }) => {
           {user && (
             <NavItem>
               <NavLink onClick={() => auth.logout()} href='/' className='logout-btn'>
-                <AppIcon className='fa fa-sign-out' size='sm' title={translate('navbar.logout')} />
-                {/* <br />
-                ({user.login}) */}
+                <section>
+                  <AppIcon className='fa fa-sign-out' size='sm' />
+                  <div class="small">{translate('navbar.exit')}</div>
+                </section>
               </NavLink>
             </NavItem>
           )}
