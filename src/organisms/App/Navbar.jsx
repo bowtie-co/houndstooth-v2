@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarLoader } from 'react-spinners';
+// import { BarLoader } from 'react-spinners';
 import {
   Nav,
   NavItem,
@@ -15,7 +15,7 @@ import { LanguageSelect, RepoSelect } from '../../molecules';
 
 export const AppNavbar = ({ children, ...props }) => {
   const { auth, languages, translate } = props;
-  const { user, repos, repo, branch, openPull, isBranchBuilding, isPullPending, submitChanges, getDeployedUrl, pulls } = props;
+  const { user, repos, repo, openPull, deployedUrl, isPullPending, submitChanges, pulls } = props;
 
   const [ isNavOpen, setIsNavOpen ] = useState(false);
   const toggleNav = () => setIsNavOpen(prevState => !prevState);
@@ -38,23 +38,29 @@ export const AppNavbar = ({ children, ...props }) => {
 
       {repo && (
         <Nav className="m-auto nav-bar" navbar>
-          <NavItem>
-            <NavLink title={getDeployedUrl(branch)} href={'//' + getDeployedUrl(branch)} target='_blank' rel='noopener noreferrer'>
-              {/* TODO: Handle status failed state? */}
-              {isBranchBuilding() ? (
+          {/* {(refStatus && refStatus.build && refStatus.build.state === 'pending' && refStatus.build.target_url) && (
+            <NavItem>
+              <NavLink title={getDeployedUrl(branch)} href={'//' + getDeployedUrl(branch)} target='_blank' rel='noopener noreferrer'>
                 <span>
                   {translate('general.deploying')}...
                   <br />
                   <BarLoader />
                 </span>
-              ) : (
+              </NavLink>
+            </NavItem>
+          )} */}
+
+          {deployedUrl && (
+            <NavItem>
+              <NavLink title={deployedUrl} href={deployedUrl} target='_blank' rel='noopener noreferrer'>
                 <section>
                   <AppIcon className='fa fa-eye' size='sm' />
                   <div class="small">{translate('navbar.preview')}</div>
                 </section>
-              )}
-            </NavLink>
-          </NavItem>
+              </NavLink>
+            </NavItem>
+          )}
+
           {openPull && isPullPending(openPull) && (
             <NavItem>
               <NavLink title={translate('navbar.submit_title')} onClick={() => submitChanges(openPull)}>

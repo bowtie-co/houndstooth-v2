@@ -6,10 +6,34 @@ import { RepoModalResolve } from '../../organisms';
 
 export const WithGithubRepoControls = ({ children, ...props }) => {
   const [ branchConflicts, setBranchConflicts ] = useState();
+  const [ branchStatus, setBranchStatus ] = useState();
+  const [ deployedUrl, setDeployedUrl ] = useState();
+  const [ refStatus, setRefStatus ] = useState();
   const [ pulls, setPulls ] = useState();
   const [ openPull, setOpenPull ] = useState();
   const [ loading, setLoading ] = useState(false);
   const { github, repo, branch, repoProps, translate } = props;
+
+  useEffect(() => {
+    if (branch) {
+      github.sumStatuses(Object.assign({}, repoProps, { ref: branch })).then(statusSummary => {
+        setBranchStatus(statusSummary);
+        console.log('set statusSummary', statusSummary);
+
+        if (statusSummary && statusSummary.deploy && statusSummary.deploy.target_url) {
+          setDeployedUrl(statusSummary.deploy.target_url);
+        }
+      });
+    }
+  }, [ github, branch, repoProps ]);
+
+  useEffect(() => {
+    if (branchRef) {
+      github.sumStatuses(Object.assign({}, repoProps, { ref: branchRef })).then(statusSummary => {
+        setRefStatus(statusSummary);
+      });
+    }
+  }, [ github, branchRef, repoProps ]);
 
   const isPullPending = (pull) => {
     // const reg = new RegExp(translate('changes.pr_pending_title'));
@@ -289,6 +313,9 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
     pulls,
     openPull,
     branchConflicts,
+    branchStatus,
+    deployedUrl,
+    refStatus,
     resolveConflicts,
     submitChanges,
     isPullPending,
