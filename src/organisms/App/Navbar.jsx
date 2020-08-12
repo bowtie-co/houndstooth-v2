@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarLoader } from 'react-spinners';
+// import { BarLoader } from 'react-spinners';
 import {
   Nav,
   NavItem,
@@ -15,7 +15,7 @@ import { BranchSelect, LanguageSelect, RepoSelect } from '../../molecules';
 
 export const AppNavbar = ({ children, ...props }) => {
   const { auth, languages, translate } = props;
-  const { user, repos, repo, branch, openPull, isBranchBuilding, isPullPending, submitChanges, getDeployedUrl, pulls } = props;
+  const { user, repos, repo, branch, openPull, deployedUrl, isPullPending, submitChanges, pulls } = props;
 
   const [ isNavOpen, setIsNavOpen ] = useState(false);
   const toggleNav = () => setIsNavOpen(prevState => !prevState);
@@ -44,23 +44,42 @@ export const AppNavbar = ({ children, ...props }) => {
 
       {repo && (
         <Nav className="m-auto nav-bar" navbar>
-          <NavItem>
-            <NavLink title={getDeployedUrl(branch)} href={'//' + getDeployedUrl(branch)} target='_blank' rel='noopener noreferrer'>
-              {/* TODO: Handle status failed state? */}
-              {isBranchBuilding() ? (
+          {/* TODO: Finalize enforcement / visibility for the approvals feature */}
+          {repo.permissions.admin && pulls && pulls.length > 0 && (
+            <NavItem>
+              <NavLink title={`${pulls.length} ${translate('navbar.pending_title')}`} href={`/${repo.full_name}/pulls`}>
+                <AppButton size='xs' color='warning'>
+                  <Badge pill color="warning">{pulls.length}</Badge>
+                  &nbsp;
+                  {translate('navbar.pending')}
+                </AppButton>
+              </NavLink>
+            </NavItem>
+          )}
+
+          {/* {(refStatus && refStatus.build && refStatus.build.state === 'pending' && refStatus.build.target_url) && (
+            <NavItem>
+              <NavLink title={getDeployedUrl(branch)} href={'//' + getDeployedUrl(branch)} target='_blank' rel='noopener noreferrer'>
                 <span>
                   {translate('general.deploying')}...
                   <br />
                   <BarLoader />
                 </span>
-              ) : (
+              </NavLink>
+            </NavItem>
+          )} */}
+
+          {deployedUrl && (
+            <NavItem>
+              <NavLink title={deployedUrl} href={deployedUrl} target='_blank' rel='noopener noreferrer'>
                 <section>
                   <AppIcon className='fa fa-eye' size='sm' />
                   <div class="small">{translate('navbar.preview')}</div>
                 </section>
-              )}
-            </NavLink>
-          </NavItem>
+              </NavLink>
+            </NavItem>
+          )}
+
           {openPull && isPullPending(openPull) && (
             <NavItem>
               <NavLink title={translate('navbar.submit_title')} onClick={() => submitChanges(openPull)}>
@@ -70,6 +89,7 @@ export const AppNavbar = ({ children, ...props }) => {
               </NavLink>
             </NavItem>
           )}
+
           {/* <NavItem>
             <NavLink title={translate('navbar.submit_title')} href={`/${repo.full_name}/pulls`} target='_blank' rel='noopener noreferrer'>
               <AppButton size='xs' color='success'>
@@ -84,18 +104,6 @@ export const AppNavbar = ({ children, ...props }) => {
               </AppButton>
             </NavLink>
           </NavItem> */}
-          {/* TODO: Finalize enforcement / visibility for the approvals feature */}
-          {repo.permissions.admin && pulls && pulls.length > 0 && (
-            <NavItem>
-              <NavLink title={`${pulls.length} ${translate('navbar.pending_title')}`} href={`/${repo.full_name}/pulls`}>
-                <AppButton size='xs' color='warning'>
-                  <Badge pill color="warning">{pulls.length}</Badge>
-                  &nbsp;
-                  {translate('navbar.pending')}
-                </AppButton>
-              </NavLink>
-            </NavItem>
-          )}
         </Nav>
       )}
 
