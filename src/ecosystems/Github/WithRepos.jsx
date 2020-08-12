@@ -12,12 +12,32 @@ export const WithGithubRepos = ({ children, ...props }) => {
   const [ loading, setLoading ] = useState(true);
   const { github } = props;
 
+  const flattenRepos = (repos) => {
+    const flattenedRepos = [];
+    repos.forEach(repo => {
+      const { id, default_branch, description, full_name, name, owner, updated_at } = repo;
+      flattenedRepos.push(Object.assign({}, {
+        id, default_branch, description, full_name, name, owner, updated_at
+      }));
+    });
+    return flattenedRepos;
+  };
+
   const loadRepos = useCallback((force = false) => {
     console.log('loadRepos()', repos);
 
+    let pageNumber = 1;
+
     github.iterateRepos((reposPage) => {
       // Handle each page of repos
-      console.log('github.iterateRepos - reposPage', reposPage);
+      // console.log('github.iterateRepos - reposPage', reposPage);
+
+      const repos = flattenRepos(reposPage);
+      const storedRepos = storage.get('repos') || {};
+      const newRepos = Object.assign(storedRepos, { [`page_${pageNumber || 1}`]: repos });
+
+      storage.set(`repos`, newRepos);
+      pageNumber += 1;
     }, { sort: 'updated' }).then((allRepos) => {
       // OPTIONAL - Do something after all? Could be unique resp/etc ...
       console.log('github.iterateRepos - allRepos', allRepos);
@@ -29,13 +49,7 @@ export const WithGithubRepos = ({ children, ...props }) => {
       setLoading(true);
 
       github.repos({sort: 'updated'}).then(results => {
-        const flattenedRepos = [];
-        results.forEach(result => {
-          const { id, default_branch, description, full_name, name, owner, updated_at } = result;
-          flattenedRepos.push(Object.assign({}, {
-            id, default_branch, description, full_name, name, owner, updated_at
-          }));
-        });
+        const flattenedRepos = flattenRepos(results);
         storage.set('all_repos', flattenedRepos);
         setRepos(flattenedRepos);
         setLoading(false);
