@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useQueryParams } from 'hookrouter';
 import { notifier } from '../../lib';
 import { WithLoader, WithChildren, WithServicePubnub, WithGithubRepoControls } from '../';
 
@@ -11,6 +12,7 @@ export const WithGithubRepo = ({ children, ...props }) => {
   const [ branches, setBranches ] = useState([]);
   const [ branchRef, setBranchRef ] = useState();
   const [ loading, setLoading ] = useState(true);
+  const [ queryParams ] = useQueryParams();
   const { github, pageProps } = props;
   const { num, entry, username, filepath, collection, docId, subId, ...repoProps } = pageProps;
 
@@ -23,8 +25,10 @@ export const WithGithubRepo = ({ children, ...props }) => {
       setRepo(repoData);
 
       github.branches(pageProps).then(branchesData => {
+        const refBranch = queryParams.ref;
+        // TODO: @Charlie - Do we want to leave the userBranch logic?
         const userBranch = branchesData.find(b => b.name === login);
-        const activeBranch = userBranch ? userBranch.name : repoData.default_branch;
+        const activeBranch = refBranch ? refBranch : (userBranch ? userBranch.name : repoData.default_branch);
 
         setBranches(branchesData);
         setBranch(activeBranch);
@@ -46,7 +50,7 @@ export const WithGithubRepo = ({ children, ...props }) => {
       notifier.bad(err);
       setLoading(false);
     });
-  }, [ user, github, pageProps ]);
+  }, [ user, github, pageProps, queryParams ]);
 
   useEffect(() => {
     loadRepoData();

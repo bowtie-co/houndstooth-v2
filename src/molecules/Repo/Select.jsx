@@ -23,7 +23,7 @@ export const RepoSelect = (props) => {
 
   return (
     <Select
-      className={`RepoSelect ${className}`}
+      className={`NavSelect ${className}`}
       options={repos}
       getOptionLabel={option => option.full_name}
       getOptionValue={option => option}
