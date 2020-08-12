@@ -1,4 +1,5 @@
 import { storage, injectPageProps } from '.';
+import { useQueryParams } from 'hookrouter';
 import {
   // AppHomePage,
   AppNotFoundPage,
@@ -26,6 +27,8 @@ export const pageRoutes = {
 };
 
 export const routes = injectPageProps(pageRoutes, (props) => {
+  const [ queryParams ] = useQueryParams();
+
   const {
     num,
     repo,
@@ -47,7 +50,8 @@ export const routes = injectPageProps(pageRoutes, (props) => {
     subId,
     username,
     filepath,
-    collection
+    collection,
+    queryParams
   };
 
   storage.set('pageProps', pageProps);

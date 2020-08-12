@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { navigate } from 'hookrouter';
+import qs from 'qs';
 import Select from 'react-select';
 
 export const BranchSelect = (props) => {
-  const { location, branch, branches, className = '' } = props;
+  const { location, branch, branches, className = '', pageProps } = props;
+  const { queryParams } = pageProps;
 
-  const [ selected, setSelected ] = useState(!!branch && branch);
+  const [ selected ] = useState(!!branch && branch);
 
   const handleSelect = (e) => {
-    setSelected(e.name);
-    navigate(`${location.pathname}?ref=${e.name}`);
+    const newParams = Object.assign({}, queryParams, { ref: e.name });
+    location.href = `${location.pathname}?${qs.stringify(newParams)}`;
   }
 
   return (
