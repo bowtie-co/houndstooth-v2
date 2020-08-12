@@ -7,10 +7,10 @@ export const CollectionNavLink = ({ name, config, ...props }) => {
   // console.debug('CollectionNavLink', { props });
 
   const { label = name, icon = 'folder' } = config;
-  const { repo, entries, pageProps } = props;
+  const { repo, entries, linkWithQueryParams, pageProps } = props;
   const { collection } = pageProps;
 
-  const href = `/${repo.full_name}/collections/${name}`;
+  const href = linkWithQueryParams(`/${repo.full_name}/collections/${name}`);
   const active = (name === collection);
 
   return (

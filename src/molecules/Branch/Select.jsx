@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import qs from 'qs';
 import Select from 'react-select';
 
 export const BranchSelect = (props) => {
-  const { location, branch, branches, className = '', pageProps } = props;
-  const { queryParams } = pageProps;
+  const { location, branch, branches, className = '', linkWithQueryParams } = props;
 
   const [ selected ] = useState(!!branch && branch);
 
   const handleSelect = (e) => {
-    const newParams = Object.assign({}, queryParams, { ref: e.name });
-    location.href = `${location.pathname}?${qs.stringify(newParams)}`;
+    location.href = linkWithQueryParams(location.pathname, { ref: e.name });
   }
 
   return (

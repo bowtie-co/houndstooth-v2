@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { notifier } from '../../lib';
+import { notifier, storage } from '../../lib';
 import { WithLoader, WithChildren, WithServicePubnub, WithGithubRepoControls } from '../';
 
 export const WithGithubRepo = ({ children, ...props }) => {
@@ -11,8 +11,8 @@ export const WithGithubRepo = ({ children, ...props }) => {
   const [ branches, setBranches ] = useState([]);
   const [ branchRef, setBranchRef ] = useState();
   const [ loading, setLoading ] = useState(true);
-  const { github, pageProps } = props;
-  const { num, entry, username, filepath, collection, docId, subId, queryParams, ...repoProps } = pageProps;
+  const { github, pageProps, queryParams } = props;
+  const { num, entry, username, filepath, collection, docId, subId, ...repoProps } = pageProps;
 
   const loadRepoData = useCallback(() => {
     setLoading(true);
@@ -26,15 +26,19 @@ export const WithGithubRepo = ({ children, ...props }) => {
         const refBranch = queryParams.ref;
         // TODO: @Charlie - Do we want to re-implement the userBranch logic?
         // const userBranch = branchesData.find(b => b.name === login);
-        const activeBranch = refBranch ? refBranch : repoData.default_branch;
+        const activeBranch = refBranch || (storage.get('activeBranch') || repoData.default_branch);
 
         setBranches(branchesData);
-        setBranch(activeBranch);
 
         const branchData = branchesData.find(b => b.name === activeBranch);
 
         if (branchData && branchData.commit && branchData.commit.sha) {
+          setBranch(activeBranch);
           setBranchRef(branchData.commit.sha);
+          storage.set('activeBranch', activeBranch);
+        } else {
+          setBranch(repoData.default_branch);
+          storage.set('activeBranch', repoData.default_branch);
         }
 
         setLoading(false);

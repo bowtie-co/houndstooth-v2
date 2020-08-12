@@ -9,7 +9,7 @@ export const RepoSelect = (props) => {
   const [ placeholder, setPlaceholder ] = useState(!!repo ? repo.full_name : translate('general.loading'));
 
   const handleSelect = (e) => {
-    location.href = `/${e.full_name}/collections?ref=${e.default_branch || 'master'}`;
+    location.href = `/${e.full_name}/collections`;
   }
 
   useEffect(() => {
