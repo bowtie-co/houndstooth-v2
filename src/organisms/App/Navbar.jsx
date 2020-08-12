@@ -15,7 +15,7 @@ import { BranchSelect, LanguageSelect, RepoSelect } from '../../molecules';
 
 export const AppNavbar = ({ children, ...props }) => {
   const { auth, languages, translate } = props;
-  const { user, repos, repo, openPull, deployedUrl, isPullPending, submitChanges, pulls, branch } = props;
+  const { user, repos, repo, branch, openPull, deployedUrl, isPullPending, submitChanges, pulls } = props;
 
   const [ isNavOpen, setIsNavOpen ] = useState(false);
   const toggleNav = () => setIsNavOpen(prevState => !prevState);
