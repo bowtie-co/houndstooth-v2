@@ -1,4 +1,5 @@
 import async from 'async';
+import { GithubCommitStatus } from '@bowtie/ts-github';
 import React, { useState, useEffect, useCallback } from 'react';
 import { WithLoader, WithChildren } from '../';
 import { notifier, airbrake } from '../../lib';
@@ -16,7 +17,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
 
   useEffect(() => {
     if (branch) {
-      github.sumStatuses(Object.assign({}, repoProps, { ref: branch })).then(statusSummary => {
+      github.sumStatuses(Object.assign({}, repoProps, { ref: branch, only: GithubCommitStatus.success })).then(statusSummary => {
         setBranchStatus(statusSummary);
         console.log('set statusSummary', statusSummary);
 
