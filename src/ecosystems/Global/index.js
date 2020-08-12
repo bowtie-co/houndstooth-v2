@@ -4,5 +4,6 @@ export * from './WithContent';
 export * from './WithErrorBoundary';
 export * from './WithLoader';
 export * from './WithPubnub';
+export * from './WithQueryParams';
 export * from './WithRoutes';
 export * from './WithSidebar';
