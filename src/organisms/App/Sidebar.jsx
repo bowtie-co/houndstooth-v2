@@ -5,7 +5,7 @@ import { AppIcon } from '../../atoms';
 import { CollectionNav } from '../../molecules';
 
 export const AppSidebar = ({ children, className, isCollapsed, toggleIsCollapsed, ...props }) => {
-  const { repo, jekyll, translate } = props;
+  const { repo, jekyll, linkWithQueryParams, translate } = props;
 
   return (
     <section className={classnames(`AppSidebar side-menu-section ${className || ''}`, {'collapsed-side-menu': isCollapsed})}>
@@ -35,7 +35,7 @@ export const AppSidebar = ({ children, className, isCollapsed, toggleIsCollapsed
           </Nav>
           {repo && jekyll && jekyll.collections && (
             <Nav vertical>
-              <NavLink href={`/${repo.full_name}/collections`}>
+              <NavLink href={linkWithQueryParams(`/${repo.full_name}/collections`)}>
                 <AppIcon iconName={'folder'} />
                 <span>{translate('sidebar.collections')}</span>
                 <CollectionNav {...props} />

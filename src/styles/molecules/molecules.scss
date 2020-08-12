@@ -331,7 +331,7 @@ div.DateInput__block {
       box-shadow: none !important;
     }
     .small {
-      font-size: 97%;
+      font-size: 0.75rem;
     }
   }
   .dropdown-menu {
@@ -351,8 +351,9 @@ div.DateInput__block {
   }
 }
 
-.RepoSelect {
+.NavSelect {
   text-align: left;
   white-space: nowrap;
   width: 100%;
+  font-size: 0.75rem;
 }

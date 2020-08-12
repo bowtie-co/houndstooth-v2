@@ -5,12 +5,12 @@ import { AppIcon } from '../../atoms';
 export const CollectionItemNavLink = ({ item, ...props }) => {
   // console.debug('CollectionItemNavLink', { item, props });
 
-  const { repo, pageProps, friendlyName } = props;
+  const { repo, pageProps, friendlyName, linkWithQueryParams } = props;
   const { collection, entry } = pageProps;
   // const { icon = 'folder' } = jekyll.collections[collection];
   const { name } = item;
 
-  const href = `/${repo.full_name}/collections/${collection}/${name}`;
+  const href = linkWithQueryParams(`/${repo.full_name}/collections/${collection}/${name}`);
   const active = (name === entry);
 
   return (
