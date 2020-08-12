@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRoutes } from 'hookrouter';
 import { AppNotFoundPage } from '../../pages';
+import { WithQueryParams } from './WithQueryParams';
 
 export const WithRoutes = ({ children, ...props }) => {
   const { auth, routes } = props;
@@ -12,5 +13,13 @@ export const WithRoutes = ({ children, ...props }) => {
     return authRouteAction(props);
   }
 
-  return (typeof appRouteAction === 'function') ? appRouteAction(props) : <AppNotFoundPage {...props} />;
+  return (
+    <WithQueryParams>
+      {
+        (typeof appRouteAction === 'function')
+          ? appRouteAction(props)
+          : <AppNotFoundPage {...props} />
+      }
+    </WithQueryParams>
+  );
 };

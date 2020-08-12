@@ -11,7 +11,7 @@ import {
   Badge,
 } from 'reactstrap';
 import { HoundstoothLogo, AppIcon, AppButton } from '../../atoms';
-import { LanguageSelect, RepoSelect } from '../../molecules';
+import { BranchSelect, LanguageSelect, RepoSelect } from '../../molecules';
 
 export const AppNavbar = ({ children, ...props }) => {
   const { auth, languages, translate } = props;
@@ -32,8 +32,14 @@ export const AppNavbar = ({ children, ...props }) => {
 
       {repos && (
         <Nav className="m-auto nav-bar nav-bar-left" navbar>
-          <RepoSelect className='' {...props} />
+          <RepoSelect {...props} />
         </Nav>
+      )}
+
+      {branch && (
+        <Nav className="m-auto nav-bar nav-bar-left" navbar>
+        <BranchSelect {...props} />
+      </Nav>
       )}
 
       {repo && (

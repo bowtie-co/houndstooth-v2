@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { navigate } from 'hookrouter';
 import Select from 'react-select';
 
 export const RepoSelect = (props) => {
-  const { repo, repos, translate, className = '' } = props;
+  const { location, repo, repos, translate, className = '' } = props;
 
   const [ loading, setLoading ] = useState(true);
-  const [ selected, setSelected ] = useState(!!repo && repo.id);
+  const [ selected ] = useState(!!repo && repo.id);
   const [ placeholder, setPlaceholder ] = useState(!!repo ? repo.full_name : translate('general.loading'));
 
   const handleSelect = (e) => {
-    setSelected(e.id);
-    navigate(`/${e.full_name}/collections?ref=${e.default_branch || 'master'}`);
+    location.href = `/${e.full_name}/collections`;
   }
 
   useEffect(() => {
@@ -23,7 +21,7 @@ export const RepoSelect = (props) => {
 
   return (
     <Select
-      className={`RepoSelect ${className}`}
+      className={`NavSelect ${className}`}
       options={repos}
       getOptionLabel={option => option.full_name}
       getOptionValue={option => option}

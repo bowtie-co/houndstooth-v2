@@ -1,15 +1,13 @@
 import React from 'react';
-// import { navigate } from 'hookrouter';
-// import { Card, CardBody } from 'reactstrap';
 import { AppLink, CardBasic } from '../../atoms';
 
 export const CollectionItemCard = ({ entry, ...props }) => {
-  // console.debug('CollectionItemCard', { entry, props });
+  console.debug('CollectionItemCard', { entry, props });
 
-  const { repo, pageProps } = props;
+  const { repo, linkWithQueryParams, pageProps } = props;
   const { collection } = pageProps;
 
-  const href = `/${repo.full_name}/collections/${collection}/${entry.name}`;
+  const href = linkWithQueryParams(`/${repo.full_name}/collections/${collection}/${entry.name}`);
 
   return (
     <AppLink href={href}>
