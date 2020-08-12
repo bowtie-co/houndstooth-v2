@@ -12,7 +12,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
   const [ pulls, setPulls ] = useState();
   const [ openPull, setOpenPull ] = useState();
   const [ loading, setLoading ] = useState(false);
-  const { github, repo, branch, repoProps, translate } = props;
+  const { github, repo, branch, branchRef, repoProps, translate } = props;
 
   useEffect(() => {
     if (branch) {
