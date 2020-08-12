@@ -16,8 +16,10 @@ export const WithGithubRepos = ({ children, ...props }) => {
     console.log('loadRepos()', repos);
 
     github.iterateRepos((reposPage) => {
+      // Handle each page of repos
       console.log('github.iterateRepos - reposPage', reposPage);
     }, { sort: 'updated' }).then((allRepos) => {
+      // OPTIONAL - Do something after all? Could be unique resp/etc ...
       console.log('github.iterateRepos - allRepos', allRepos);
     }).catch(err => {
       console.warn(err);
