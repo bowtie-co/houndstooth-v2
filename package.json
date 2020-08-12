@@ -5,7 +5,7 @@
   "dependencies": {
     "@airbrake/browser": "^1.0.6",
     "@bowtie/api": "^0.6.3",
-    "@bowtie/ts-github": "^1.4.0",
+    "@bowtie/ts-github": "^1.6.0-pre",
     "@bowtie/utils": "^0.3.3",
     "@emotion/core": "^10.0.28",
     "@rjsf/core": "^2.0.0-alpha.6",
