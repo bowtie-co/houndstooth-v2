@@ -10,6 +10,7 @@ export const WithGithubRepos = ({ children, ...props }) => {
 
   const [ repos, setRepos ] = useState(storage.get('all_repos') || []);
   const [ reposLoading, setReposLoading ] = useState(true);
+  const [ repoPages, setRepoPages ] = useState({});
   const [ repoPage, setRepoPage ] = useState([]);
   const [ repoPageLoading, setRepoPageLoading ] = useState(true);
   const { github } = props;
@@ -43,6 +44,7 @@ export const WithGithubRepos = ({ children, ...props }) => {
         const newRepos = Object.assign(storedRepos, { [pageNumber]: page });
 
         storage.set('repos', newRepos);
+        setRepoPages(newRepos);
 
         if (pageNumber === 1) {
           setRepoPage(page);
@@ -74,6 +76,6 @@ export const WithGithubRepos = ({ children, ...props }) => {
   }, [ loadRepos ]);
 
   return (
-      <WithChildren children={children} {...props} {...{ repos, reposLoading, repoPage, repoPageLoading, reloadRepos }} />
+      <WithChildren children={children} {...props} {...{ repos, repoPages, repoPage, setRepoPage, reposLoading, repoPageLoading, reloadRepos }} />
   );
 };

@@ -3,6 +3,7 @@ import { navigate } from 'hookrouter';
 import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap';
 import { AppAvatar, AppIcon, AppLastUpdated, AppSummary, AppTitle } from '../../atoms';
 import { WithLoader } from '../../ecosystems';
+import { RepoPagination } from '../../molecules';
 
 export const RepoCards = ({ repoPage, ...props }) => {
   const { reloadRepos, repoPageLoading, translate } = props;
@@ -37,6 +38,9 @@ export const RepoCards = ({ repoPage, ...props }) => {
             </Col>
           ))}
         </Row>
+        <div className='mt-4'>
+          <RepoPagination {...props}></RepoPagination>
+        </div>
       </WithLoader>
     </section>
   );
