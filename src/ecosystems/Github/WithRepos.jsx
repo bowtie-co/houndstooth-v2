@@ -6,17 +6,14 @@ import {
 } from '../';
 
 export const WithGithubRepos = ({ children, ...props }) => {
-  const { github, location } = props;
+  const { github } = props;
 
   const [ repos, setRepos ] = useState(storage.get('all_repos') || []);
   const [ reposLoading, setReposLoading ] = useState(false);
-  const [ repoPages, setRepoPages ] = useState({});
+  const [ repoPages, setRepoPages ] = useState(storage.get('repos') || {});
   const [ repoPage, setRepoPage ] = useState([]);
   const [ repoPageLoading, setRepoPageLoading ] = useState(false);
 
-  // console.debug('WithGithubRepos', { children, props });
-
-  // TODO: @Brennan - further flatten 'all_repos' to just id & full_name (for repo selector)
   const flattenRepos = (repos) => {
     const flattenedRepos = [];
     repos.forEach(repo => {
@@ -28,10 +25,26 @@ export const WithGithubRepos = ({ children, ...props }) => {
     return flattenedRepos;
   };
 
-  const loadRepos = useCallback((force = false, first = false) => {
-    if (!repos.length || force || first) {
+  const reloadRepos = useCallback(() => {
+    storage.remove('repos');
+    storage.remove('all_repos');
+    setRepos([]);
+  }, [ setRepos ]);
+
+  useEffect(() => {
+    if (repoPages && repoPages[1] && repoPages[1].length && (!repoPage || repoPage.length === 0)) {
+      setRepoPage(repoPages[1]);
+    }
+  }, [ repoPage, repoPages ]);
+
+  useEffect(() => {
+    const loadRepos = async () => {
+      if (storage.get('all_repos') && storage.get('all_repos').length > 0) {
+        return;
+      }
+
+      setReposLoading(true);
       setRepoPageLoading(true);
-      (!repos.length || force) && setReposLoading(true);
 
       let pageNumber = 1;
 
@@ -46,35 +59,27 @@ export const WithGithubRepos = ({ children, ...props }) => {
         setRepoPages(newRepos);
 
         if (pageNumber === 1) {
-          setRepoPage(page);
+          // setRepoPage(page);
           setRepoPageLoading(false);
         }
 
         pageNumber += 1;
       }, { sort: 'updated', per_page: 24 }).then((allRepos) => {
-        if (!repos.length) {
-          const flattenedRepos = flattenRepos(allRepos);
-          storage.set('all_repos', flattenedRepos);
-          setRepos(flattenedRepos);
-          setReposLoading(false);
-        }
+        const flattenedRepos = flattenRepos(allRepos);
+        storage.set('all_repos', flattenedRepos);
+        setRepos(flattenedRepos);
+        setReposLoading(false);
       }).catch(err => {
         console.warn(err);
       });
-    }
-  }, [ github, repos ]);
+    };
 
-  const reloadRepos = useCallback(() => {
-    storage.remove('repos');
-    storage.remove('all_repos');
-    setRepos([]);
-  }, [ setRepos ])
+    loadRepos();
+  }, [ github ]);
 
-  useEffect(() => {
-    location.pathname === '/' && loadRepos(false, true);
-  }, [ loadRepos, location ]);
+  const passReposProps = { repos, repoPages, repoPage, setRepoPage, reposLoading, repoPageLoading, reloadRepos };
 
   return (
-      <WithChildren children={children} {...props} {...{ repos, repoPages, repoPage, setRepoPage, reposLoading, repoPageLoading, reloadRepos }} />
+      <WithChildren children={children} {...props} {...passReposProps} />
   );
 };
