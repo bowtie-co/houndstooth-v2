@@ -26,40 +26,40 @@ export const WithGithubRepos = ({ children, ...props }) => {
     return flattenedRepos;
   };
 
-  const loadRepos = useCallback((force = false) => {
+  const loadRepos = useCallback((force = false, first = false) => {
     console.log('loadRepos()', repos);
 
-    if (!repos.length || force) {
-      setReposLoading(true);
+    if (!repos.length || force || first) {
       setRepoPageLoading(true);
+      (!repos.length || force) && setReposLoading(true);
 
       let pageNumber = 1;
 
       github.iterateRepos((reposPage) => {
         // Handle each page of repos
-        const repos = flattenRepos(reposPage);
+        const page = flattenRepos(reposPage);
 
         const storedRepos = storage.get('repos') || {};
-        const newRepos = Object.assign(storedRepos, { [pageNumber]: repos });
+        const newRepos = Object.assign(storedRepos, { [pageNumber]: page });
 
         storage.set('repos', newRepos);
 
         if (pageNumber === 1) {
-          setRepoPage(repos);
+          setRepoPage(page);
           setRepoPageLoading(false);
         }
 
         pageNumber += 1;
       }, { sort: 'updated', per_page: 24 }).then((allRepos) => {
-        const flattenedRepos = flattenRepos(allRepos, true);
-        storage.set('all_repos', flattenedRepos);
-        setRepos(flattenedRepos);
-        setReposLoading(false);
+        if (!repos.length) {
+          const flattenedRepos = flattenRepos(allRepos, true);
+          storage.set('all_repos', flattenedRepos);
+          setRepos(flattenedRepos);
+          setReposLoading(false);
+        }
       }).catch(err => {
         console.warn(err);
       });
-    } else {
-      setReposLoading(false);
     }
   }, [ github, repos ]);
 
@@ -70,12 +70,10 @@ export const WithGithubRepos = ({ children, ...props }) => {
   }, [ setRepos ])
 
   useEffect(() => {
-    loadRepos();
+    loadRepos(false, true);
   }, [ loadRepos ]);
 
   return (
-    // <WithLoader isLoading={loading} defer>
       <WithChildren children={children} {...props} {...{ repos, reposLoading, repoPage, repoPageLoading, reloadRepos }} />
-    // </WithLoader>
   );
 };
