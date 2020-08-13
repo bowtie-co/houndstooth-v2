@@ -6,14 +6,15 @@ import {
 } from '../';
 
 export const WithGithubRepos = ({ children, ...props }) => {
-  console.debug('WithGithubRepos', { children, props });
+  const { github, location } = props;
 
   const [ repos, setRepos ] = useState(storage.get('all_repos') || []);
-  const [ reposLoading, setReposLoading ] = useState(true);
+  const [ reposLoading, setReposLoading ] = useState(false);
   const [ repoPages, setRepoPages ] = useState({});
   const [ repoPage, setRepoPage ] = useState([]);
-  const [ repoPageLoading, setRepoPageLoading ] = useState(true);
-  const { github } = props;
+  const [ repoPageLoading, setRepoPageLoading ] = useState(false);
+
+  // console.debug('WithGithubRepos', { children, props });
 
   // TODO: @Brennan - further flatten 'all_repos' to just id & full_name (for repo selector)
   const flattenRepos = (repos, flatter = false) => {
@@ -72,8 +73,8 @@ export const WithGithubRepos = ({ children, ...props }) => {
   }, [ setRepos ])
 
   useEffect(() => {
-    loadRepos(false, true);
-  }, [ loadRepos ]);
+    location.pathname === '/' && loadRepos(false, true);
+  }, [ loadRepos, location ]);
 
   return (
       <WithChildren children={children} {...props} {...{ repos, repoPages, repoPage, setRepoPage, reposLoading, repoPageLoading, reloadRepos }} />
