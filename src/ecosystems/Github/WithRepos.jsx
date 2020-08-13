@@ -29,8 +29,6 @@ export const WithGithubRepos = ({ children, ...props }) => {
   };
 
   const loadRepos = useCallback((force = false, first = false) => {
-    console.log('loadRepos()', repos);
-
     if (!repos.length || force || first) {
       setRepoPageLoading(true);
       (!repos.length || force) && setReposLoading(true);
