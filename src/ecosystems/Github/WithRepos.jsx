@@ -9,16 +9,19 @@ export const WithGithubRepos = ({ children, ...props }) => {
   console.debug('WithGithubRepos', { children, props });
 
   const [ repos, setRepos ] = useState(storage.get('all_repos') || []);
-  const [ loading, setLoading ] = useState(true);
+  const [ reposLoading, setReposLoading ] = useState(true);
+  const [ repoPage, setRepoPage ] = useState([]);
+  const [ repoPageLoading, setRepoPageLoading ] = useState(true);
   const { github } = props;
 
-  const flattenRepos = (repos) => {
+  // TODO: @Brennan - further flatten 'all_repos' to just id & full_name (for repo selector)
+  const flattenRepos = (repos, flatter = false) => {
     const flattenedRepos = [];
     repos.forEach(repo => {
       const { id, default_branch, description, full_name, name, owner, updated_at } = repo;
-      flattenedRepos.push(Object.assign({}, {
-        id, default_branch, description, full_name, name, owner, updated_at
-      }));
+      const flattenedRepo = flatter ?
+        {id, full_name} : {id, default_branch, description, full_name, name, owner, updated_at};
+      flattenedRepos.push(Object.assign({}, flattenedRepo));
     });
     return flattenedRepos;
   };
@@ -26,43 +29,42 @@ export const WithGithubRepos = ({ children, ...props }) => {
   const loadRepos = useCallback((force = false) => {
     console.log('loadRepos()', repos);
 
-    let pageNumber = 1;
-
-    github.iterateRepos((reposPage) => {
-      // Handle each page of repos
-      // console.log('github.iterateRepos - reposPage', reposPage);
-
-      const repos = flattenRepos(reposPage);
-      const storedRepos = storage.get('repos') || {};
-      const newRepos = Object.assign(storedRepos, { [`page_${pageNumber || 1}`]: repos });
-
-      storage.set(`repos`, newRepos);
-      pageNumber += 1;
-    }, { sort: 'updated' }).then((allRepos) => {
-      // OPTIONAL - Do something after all? Could be unique resp/etc ...
-      console.log('github.iterateRepos - allRepos', allRepos);
-    }).catch(err => {
-      console.warn(err);
-    });
-
     if (!repos.length || force) {
-      setLoading(true);
+      setReposLoading(true);
+      setRepoPageLoading(true);
 
-      github.repos({sort: 'updated'}).then(results => {
-        const flattenedRepos = flattenRepos(results);
+      let pageNumber = 1;
+
+      github.iterateRepos((reposPage) => {
+        // Handle each page of repos
+        const repos = flattenRepos(reposPage);
+
+        const storedRepos = storage.get('repos') || {};
+        const newRepos = Object.assign(storedRepos, { [pageNumber]: repos });
+
+        storage.set('repos', newRepos);
+
+        if (pageNumber === 1) {
+          setRepoPage(repos);
+          setRepoPageLoading(false);
+        }
+
+        pageNumber += 1;
+      }, { sort: 'updated', per_page: 24 }).then((allRepos) => {
+        const flattenedRepos = flattenRepos(allRepos, true);
         storage.set('all_repos', flattenedRepos);
         setRepos(flattenedRepos);
-        setLoading(false);
+        setReposLoading(false);
       }).catch(err => {
         console.warn(err);
-        setLoading(false);
       });
     } else {
-      setLoading(false);
+      setReposLoading(false);
     }
   }, [ github, repos ]);
 
   const reloadRepos = useCallback(() => {
+    storage.remove('repos');
     storage.remove('all_repos');
     setRepos([]);
   }, [ setRepos ])
@@ -73,7 +75,7 @@ export const WithGithubRepos = ({ children, ...props }) => {
 
   return (
     // <WithLoader isLoading={loading} defer>
-      <WithChildren children={children} {...props} {...{ repos, reloadRepos, reposLoading: loading }} />
+      <WithChildren children={children} {...props} {...{ repos, reposLoading, repoPage, repoPageLoading, reloadRepos }} />
     // </WithLoader>
   );
 };

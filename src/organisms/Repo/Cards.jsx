@@ -4,8 +4,8 @@ import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap';
 import { AppAvatar, AppIcon, AppLastUpdated, AppSummary, AppTitle } from '../../atoms';
 import { WithLoader } from '../../ecosystems';
 
-export const RepoCards = ({ repos, ...props }) => {
-  const { reloadRepos, reposLoading, translate } = props;
+export const RepoCards = ({ repoPage, ...props }) => {
+  const { reloadRepos, repoPageLoading, translate } = props;
 
   return (
     <section className='RepoCards'>
@@ -17,9 +17,9 @@ export const RepoCards = ({ repos, ...props }) => {
           {/* <AppIcon iconName='sync-alt' size='sm' onClick={reloadReposAndBranches} /> */}
         </div>
       </div>
-      <WithLoader isLoading={reposLoading} nonBlocking={true}>
+      <WithLoader isLoading={repoPageLoading} nonBlocking={true}>
         <Row>
-          {repos.map((repo, index) => (
+          {repoPage.map((repo, index) => (
             <Col md='6' lg='4' xl='3' key={index} className='list-item'>
               <Card className='repo-card' onClick={() => navigate(`/${repo.full_name}`)}>
                 <CardTitle>{repo.name}</CardTitle>
