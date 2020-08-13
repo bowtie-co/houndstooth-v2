@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import AsyncSelect from 'react-select/async';
 
 export const RepoSelect = (props) => {
-  const { location, repo, repos, translate, className = '' } = props;
+  const { location, repo, repos, reposLoading, translate, className = '' } = props;
 
   const [ loading, setLoading ] = useState(true);
   const [ selected ] = useState(!!repo && repo.id);
-  const [ defaultOptions ] = useState(repos.length ? repos.slice(0, 100) : []);
+  const [ defaultOptions, setDefaultOptions ] = useState([]);
   const [ placeholder, setPlaceholder ] = useState(!!repo ? repo.full_name : translate('general.loading'));
 
   const search = (inputValue) => {
@@ -26,11 +26,15 @@ export const RepoSelect = (props) => {
   }
 
   useEffect(() => {
+    setDefaultOptions(repos.length ? repos.slice(0, 100) : []);
+  }, [ repos ]);
+
+  useEffect(() => {
     if (!repo) {
       setPlaceholder(!repos.length ? `${translate('general.loading')} ...` : translate('repos.select'));
     }
     setLoading(!repos.length);
-  }, [repo, repos, translate]);
+  }, [ repo, repos, translate ]);
 
   return (
     <AsyncSelect
@@ -41,7 +45,7 @@ export const RepoSelect = (props) => {
       getOptionValue={option => option}
       isOptionSelected={option => selected === option.id}
       placeholder={placeholder}
-      isLoading={loading}
+      isLoading={reposLoading}
       isDisabled={loading}
       onChange={handleSelect}
       autoFocus
