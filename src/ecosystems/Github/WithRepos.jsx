@@ -17,13 +17,13 @@ export const WithGithubRepos = ({ children, ...props }) => {
   // console.debug('WithGithubRepos', { children, props });
 
   // TODO: @Brennan - further flatten 'all_repos' to just id & full_name (for repo selector)
-  const flattenRepos = (repos, flatter = false) => {
+  const flattenRepos = (repos) => {
     const flattenedRepos = [];
     repos.forEach(repo => {
       const { id, default_branch, description, full_name, name, owner, updated_at } = repo;
-      const flattenedRepo = flatter ?
-        {id, full_name} : {id, default_branch, description, full_name, name, owner, updated_at};
-      flattenedRepos.push(Object.assign({}, flattenedRepo));
+      flattenedRepos.push(Object.assign({}, {
+        id, default_branch, description, full_name, name, owner, updated_at
+      }));
     });
     return flattenedRepos;
   };
@@ -53,7 +53,7 @@ export const WithGithubRepos = ({ children, ...props }) => {
         pageNumber += 1;
       }, { sort: 'updated', per_page: 24 }).then((allRepos) => {
         if (!repos.length) {
-          const flattenedRepos = flattenRepos(allRepos, true);
+          const flattenedRepos = flattenRepos(allRepos);
           storage.set('all_repos', flattenedRepos);
           setRepos(flattenedRepos);
           setReposLoading(false);
