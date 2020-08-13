@@ -15,7 +15,7 @@ export const LanguageSelect = ({ ...props }) => {
     <UncontrolledButtonDropdown className='LanguageSelect pr-1' direction='down' size='sm'>
       <DropdownToggle className='dropdown-btn'>
         <AppIcon iconName='globe-americas' size='sm' />
-        <div class="small">{translate('navbar.language')}</div>
+        <div className="small">{translate('navbar.language')}</div>
       </DropdownToggle>
       <DropdownMenu>
         {languages.map((l, i) => (

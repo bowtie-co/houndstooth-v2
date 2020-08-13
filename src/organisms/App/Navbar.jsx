@@ -74,7 +74,7 @@ export const AppNavbar = ({ children, ...props }) => {
               <NavLink title={deployedUrl} href={deployedUrl} target='_blank' rel='noopener noreferrer'>
                 <section>
                   <AppIcon className='fa fa-eye' size='sm' />
-                  <div class="small">{translate('navbar.preview')}</div>
+                  <div className="small">{translate('navbar.preview')}</div>
                 </section>
               </NavLink>
             </NavItem>
@@ -119,7 +119,7 @@ export const AppNavbar = ({ children, ...props }) => {
               <NavLink href={repo.html_url} target='_blank' rel='noopener noreferrer'>
                 <section>
                   <AppIcon className='fab fa-github' color='white' size='sm' />
-                  <div class="small">{translate('navbar.source')}</div>
+                  <div className="small">{translate('navbar.source')}</div>
                 </section>
               </NavLink>
             </NavItem>
@@ -130,7 +130,7 @@ export const AppNavbar = ({ children, ...props }) => {
               <NavLink onClick={() => auth.logout()} href='/' className='logout-btn'>
                 <section>
                   <AppIcon className='fa fa-sign-out' size='sm' />
-                  <div class="small">{translate('navbar.exit')}</div>
+                  <div className="small">{translate('navbar.exit')}</div>
                 </section>
               </NavLink>
             </NavItem>
