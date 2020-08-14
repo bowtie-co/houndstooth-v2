@@ -2,8 +2,7 @@ import React from 'react';
 import loading from './bowtie-loader.gif';
 import '../../styles/Loading.scss';
 
-export const BowtieLoader = ({...props}) => {
-  const { nonBlocking = false } = props;
+export const BowtieLoader = ({nonBlocking = false, ...props}) => {
   const className = nonBlocking ? 'loader-non-blocking' : '';
 
   return (
