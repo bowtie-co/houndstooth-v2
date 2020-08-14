@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { navigate } from 'hookrouter';
 import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap';
+import { storage } from '../../lib';
 import { AppAvatar, AppIcon, AppLastUpdated, AppSummary, AppTitle } from '../../atoms';
 import { WithLoader } from '../../ecosystems';
 import { AppPagination } from '../../molecules';
 
-export const RepoCards = ({ repos, ...props }) => {
+export const RepoCards = ({ ...props }) => {
   const { reloadRepos, translate } = props;
 
   const perPage = 24;
+  const [ repos, setRepos ] = useState(storage.get('repos') || []);
   const [ page, setPage ] = useState(1);
   const [ pageRepos, setPageRepos ] = useState([]);
 
@@ -19,6 +21,19 @@ export const RepoCards = ({ repos, ...props }) => {
     setPageRepos(repos && repos.slice(indexStart, indexEnd));
   }, [ repos, page ]);
 
+  useEffect(() => {
+    const removeRepos = () => setRepos([]);
+    const updateRepos = (savedRepos) => setRepos(savedRepos);
+
+    storage.on('repos_changed', updateRepos);
+    storage.on('repos_removed', removeRepos);
+
+    return () => {
+      storage.off('repos_changed', updateRepos);
+      storage.off('repos_removed', removeRepos);
+    };
+  }, [ setRepos ]);
+
   return (
     <section className='RepoCards'>
       <div className='repo-list-header flex-row space-between'>
@@ -27,6 +42,7 @@ export const RepoCards = ({ repos, ...props }) => {
           <AppIcon iconName='sync-alt' size='sm' onClick={() => reloadRepos()} />
         </div>
       </div>
+      {/* TODO: Address edge case of user w/o repos */}
       <WithLoader isLoading={!repos.length} nonBlocking={true}>
         <Row>
           {pageRepos.map((repo, index) => (
