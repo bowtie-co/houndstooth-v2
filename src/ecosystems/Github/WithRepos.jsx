@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { storage } from '../../lib';
 import {
   WithChildren,
@@ -6,9 +6,6 @@ import {
 
 export const WithGithubRepos = ({ children, ...props }) => {
   const { github } = props;
-
-  const [ repos, setRepos ] = useState(storage.get('repos') || []);
-  const [ reposLoading, setReposLoading ] = useState(false);
 
   const flattenRepos = (repos) => {
     const flattenedRepos = [];
@@ -22,36 +19,40 @@ export const WithGithubRepos = ({ children, ...props }) => {
   };
 
   const reloadRepos = useCallback(() => {
+    storage.remove('reposCached');
     storage.remove('repos');
-    setRepos([]);
-  }, [ setRepos ]);
+  }, [ ]);
 
   useEffect(() => {
-    const loadRepos = async () => {
-      if (storage.get('repos') && storage.get('repos').length > 0) {
+    const loadRepos = () => {
+      if (storage.get('reposCached')) {
         return;
       }
 
-      setReposLoading(true);
+      storage.set('repos', []);
 
       github.iterateRepos((reposPage) => {
         const storedRepos = storage.get('repos') || [];
         const newRepos = storedRepos.concat(flattenRepos(reposPage));
 
         storage.set('repos', newRepos);
-        setRepos(newRepos);
       }, { sort: 'updated', per_page: 24 }).then(() => {
-        setReposLoading(false);
+        storage.set('reposCached', true);
       }).catch(err => {
-        setReposLoading(false);
         console.warn(err);
       });
     };
 
     loadRepos();
-  }, [ github, repos ]);
 
-  const passReposProps = { repos, reposLoading, reloadRepos };
+    storage.on('repos_removed', loadRepos);
+
+    return () => {
+      storage.off('repos_removed', loadRepos);
+    };
+  }, [ github ]);
+
+  const passReposProps = { reloadRepos };
 
   return (
       <WithChildren children={children} {...props} {...passReposProps} />

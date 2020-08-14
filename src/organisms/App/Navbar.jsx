@@ -14,13 +14,12 @@ import { HoundstoothLogo, AppIcon, AppButton } from '../../atoms';
 import { BranchSelect, LanguageSelect, RepoSelect } from '../../molecules';
 
 export const AppNavbar = ({ children, ...props }) => {
-  const { auth, languages, translate } = props;
-  const { user, repos, repo, branch, openPull, deployedUrl, isPullPending, submitChanges, pulls } = props;
+  const { auth, languages, translate, user, repo, branch, openPull, deployedUrl, isPullPending, submitChanges, pulls } = props;
+
+  // console.debug('AppNavbar', { props });
 
   const [ isNavOpen, setIsNavOpen ] = useState(false);
   const toggleNav = () => setIsNavOpen(prevState => !prevState);
-
-  // console.debug('AppNavbar', { repos, props });
 
   return (
     <Navbar className='AppNavbar top-nav-section' expand="md">
@@ -30,11 +29,9 @@ export const AppNavbar = ({ children, ...props }) => {
 
       <NavbarToggler onClick={toggleNav} />
 
-      {repos && (
-        <Nav className="m-auto nav-bar nav-bar-left" navbar>
-          <RepoSelect {...props} />
-        </Nav>
-      )}
+      <Nav className="m-auto nav-bar nav-bar-left" navbar>
+        <RepoSelect {...props} />
+      </Nav>
 
       {branch && (
         <Nav className="m-auto nav-bar nav-bar-left" navbar>
