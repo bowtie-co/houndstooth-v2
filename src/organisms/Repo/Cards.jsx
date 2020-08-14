@@ -11,6 +11,7 @@ export const RepoCards = ({ ...props }) => {
 
   const perPage = 24;
   const [ repos, setRepos ] = useState(storage.get('repos') || []);
+  const [ reposCached, setReposCached ] = useState(storage.get('reposCached') || false);
   const [ page, setPage ] = useState(1);
   const [ pageRepos, setPageRepos ] = useState([]);
 
@@ -24,13 +25,19 @@ export const RepoCards = ({ ...props }) => {
   useEffect(() => {
     const removeRepos = () => setRepos([]);
     const updateRepos = (savedRepos) => setRepos(savedRepos);
+    const updateCached = (reposCached) => setReposCached(!!reposCached);
+    const removeCached = () => setReposCached(false);
 
     storage.on('repos_changed', updateRepos);
     storage.on('repos_removed', removeRepos);
+    storage.on('reposCached_changed', updateCached);
+    storage.on('reposCached_removed', removeCached);
 
     return () => {
       storage.off('repos_changed', updateRepos);
       storage.off('repos_removed', removeRepos);
+      storage.off('reposCached_updated', updateCached);
+      storage.off('reposCached_removed', removeCached);
     };
   }, [ setRepos ]);
 
@@ -64,7 +71,7 @@ export const RepoCards = ({ ...props }) => {
           ))}
         </Row>
         <div className='mt-4'>
-          <AppPagination items={repos} page={page} perPage={perPage} maxPages={5} setPage={setPage} {...props}></AppPagination>
+          <AppPagination items={repos} page={page} perPage={perPage} maxPages={5} disableLast={!reposCached} setPage={setPage} {...props}></AppPagination>
         </div>
       </WithLoader>
     </section>
