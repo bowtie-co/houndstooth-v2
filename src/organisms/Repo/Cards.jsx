@@ -19,8 +19,6 @@ export const RepoCards = ({ repos, ...props }) => {
     setPageRepos(repos && repos.slice(indexStart, indexEnd));
   }, [ repos, page ]);
 
-  // const passPaginationProps = { perPage, indexStart, setIndexStart };
-
   return (
     <section className='RepoCards'>
       <div className='repo-list-header flex-row space-between'>
