@@ -129,6 +129,9 @@ a {
   button.page-link {
     color: #333;
     background-color: #fff;
+    &:hover {
+      background-color:#f0f0f0;;
+    }
   }
 
   &.active {
@@ -136,7 +139,13 @@ a {
       color: #fff;
       background-color: #333;
       border-color: #333;
+    }
   }
+
+  &.disabled {
+    button.page-link {
+      color: lightgray;
+    }
   }
 }
 

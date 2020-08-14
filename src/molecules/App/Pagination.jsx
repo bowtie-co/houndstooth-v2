@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
-export const AppPagination = ({items, page = 1, perPage = 10, maxPages, setPage}) => {
+export const AppPagination = ({items, page = 1, perPage = 10, maxPages, disableLast = false, setPage}) => {
 
   const [ pageCount, setPageCount ] = useState(0);
   const [ pageNumbers, setPageNumbers ] = useState([]);
@@ -44,10 +44,10 @@ export const AppPagination = ({items, page = 1, perPage = 10, maxPages, setPage}
   return (
     <Pagination size={'sm'} className='pagination'>
       <PaginationItem disabled={page <= 1}>
-        <PaginationLink disabled={page <= 1} first onClick={(e) => handlePage(1)} />
+        <PaginationLink first onClick={(e) => handlePage(1)} />
       </PaginationItem>
       <PaginationItem disabled={page <= 1}>
-        <PaginationLink disabled={page <= 1} previous onClick={(e) => handlePage(page - 1)} />
+        <PaginationLink previous onClick={(e) => handlePage(page - 1)} />
       </PaginationItem>
 
       {pageNumbers.map(num => (
@@ -59,10 +59,10 @@ export const AppPagination = ({items, page = 1, perPage = 10, maxPages, setPage}
       ))}
 
       <PaginationItem disabled={page >= pageCount}>
-        <PaginationLink disabled={page >= pageCount} next onClick={(e) => handlePage(page + 1)} />
+        <PaginationLink next onClick={(e) => handlePage(page + 1)} />
       </PaginationItem>
-      <PaginationItem disabled={page >= pageCount}>
-        <PaginationLink disabled={page >= pageCount} last onClick={(e) => handlePage(pageCount)} />
+      <PaginationItem disabled={disableLast || page >= pageCount}>
+        <PaginationLink last onClick={(e) => handlePage(pageCount)} />
       </PaginationItem>
     </Pagination>
   );
