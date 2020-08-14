@@ -1,18 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { storage } from '../../lib';
 import {
-  // WithLoader,
   WithChildren,
 } from '../';
 
 export const WithGithubRepos = ({ children, ...props }) => {
   const { github } = props;
 
-  const [ repos, setRepos ] = useState(storage.get('all_repos') || []);
+  const [ repos, setRepos ] = useState(storage.get('repos') || []);
   const [ reposLoading, setReposLoading ] = useState(false);
-  const [ repoPages, setRepoPages ] = useState(storage.get('repos') || {});
-  const [ repoPage, setRepoPage ] = useState([]);
-  const [ repoPageLoading, setRepoPageLoading ] = useState(false);
 
   const flattenRepos = (repos) => {
     const flattenedRepos = [];
@@ -27,57 +23,35 @@ export const WithGithubRepos = ({ children, ...props }) => {
 
   const reloadRepos = useCallback(() => {
     storage.remove('repos');
-    storage.remove('all_repos');
     setRepos([]);
   }, [ setRepos ]);
 
   useEffect(() => {
-    if (repoPages && repoPages[1] && repoPages[1].length && (!repoPage || repoPage.length === 0)) {
-      setRepoPage(repoPages[1]);
-    }
-  }, [ repoPage, repoPages ]);
-
-  useEffect(() => {
     const loadRepos = async () => {
-      if (storage.get('all_repos') && storage.get('all_repos').length > 0) {
+      if (storage.get('repos') && storage.get('repos').length > 0) {
         return;
       }
 
       setReposLoading(true);
-      setRepoPageLoading(true);
-
-      let pageNumber = 1;
 
       github.iterateRepos((reposPage) => {
-        // Handle each page of repos
-        const page = flattenRepos(reposPage);
-
-        const storedRepos = storage.get('repos') || {};
-        const newRepos = Object.assign(storedRepos, { [pageNumber]: page });
+        const storedRepos = storage.get('repos') || [];
+        const newRepos = storedRepos.concat(flattenRepos(reposPage));
 
         storage.set('repos', newRepos);
-        setRepoPages(newRepos);
-
-        if (pageNumber === 1) {
-          // setRepoPage(page);
-          setRepoPageLoading(false);
-        }
-
-        pageNumber += 1;
-      }, { sort: 'updated', per_page: 24 }).then((allRepos) => {
-        const flattenedRepos = flattenRepos(allRepos);
-        storage.set('all_repos', flattenedRepos);
-        setRepos(flattenedRepos);
+        setRepos(newRepos);
+      }, { sort: 'updated', per_page: 24 }).then(() => {
         setReposLoading(false);
       }).catch(err => {
+        setReposLoading(false);
         console.warn(err);
       });
     };
 
     loadRepos();
-  }, [ github ]);
+  }, [ github, repos ]);
 
-  const passReposProps = { repos, repoPages, repoPage, setRepoPage, reposLoading, repoPageLoading, reloadRepos };
+  const passReposProps = { repos, reposLoading, reloadRepos };
 
   return (
       <WithChildren children={children} {...props} {...passReposProps} />
