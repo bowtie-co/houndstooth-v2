@@ -1,55 +1,59 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { storage } from '../../lib';
 import {
-  // WithLoader,
   WithChildren,
 } from '../';
 
 export const WithGithubRepos = ({ children, ...props }) => {
-  console.debug('WithGithubRepos', { children, props });
-
-  const [ repos, setRepos ] = useState(storage.get('all_repos') || []);
-  const [ loading, setLoading ] = useState(true);
   const { github } = props;
 
-  const loadRepos = useCallback((force = false) => {
-    console.log('loadRepos()', repos);
+  const [ repos, setRepos ] = useState(storage.get('repos') || []);
+  const [ reposLoading, setReposLoading ] = useState(false);
 
-    if (!repos.length || force) {
-      setLoading(true);
-
-      github.repos({sort: 'updated'}).then(results => {
-        const flattenedRepos = [];
-        results.forEach(result => {
-          const { id, default_branch, description, full_name, name, owner, updated_at } = result;
-          flattenedRepos.push(Object.assign({}, {
-            id, default_branch, description, full_name, name, owner, updated_at
-          }));
-        });
-        storage.set('all_repos', flattenedRepos);
-        setRepos(flattenedRepos);
-        setLoading(false);
-      }).catch(err => {
-        console.warn(err);
-        setLoading(false);
-      });
-    } else {
-      setLoading(false);
-    }
-  }, [ github, repos ]);
+  const flattenRepos = (repos) => {
+    const flattenedRepos = [];
+    repos.forEach(repo => {
+      const { id, default_branch, description, full_name, name, owner, updated_at } = repo;
+      flattenedRepos.push(Object.assign({}, {
+        id, default_branch, description, full_name, name, owner, updated_at
+      }));
+    });
+    return flattenedRepos;
+  };
 
   const reloadRepos = useCallback(() => {
-    storage.remove('all_repos');
+    storage.remove('repos');
     setRepos([]);
-  }, [ setRepos ])
+  }, [ setRepos ]);
 
   useEffect(() => {
+    const loadRepos = async () => {
+      if (storage.get('repos') && storage.get('repos').length > 0) {
+        return;
+      }
+
+      setReposLoading(true);
+
+      github.iterateRepos((reposPage) => {
+        const storedRepos = storage.get('repos') || [];
+        const newRepos = storedRepos.concat(flattenRepos(reposPage));
+
+        storage.set('repos', newRepos);
+        setRepos(newRepos);
+      }, { sort: 'updated', per_page: 24 }).then(() => {
+        setReposLoading(false);
+      }).catch(err => {
+        setReposLoading(false);
+        console.warn(err);
+      });
+    };
+
     loadRepos();
-  }, [ loadRepos ]);
+  }, [ github, repos ]);
+
+  const passReposProps = { repos, reposLoading, reloadRepos };
 
   return (
-    // <WithLoader isLoading={loading} defer>
-      <WithChildren children={children} {...props} {...{ repos, reloadRepos, reposLoading: loading }} />
-    // </WithLoader>
+      <WithChildren children={children} {...props} {...passReposProps} />
   );
 };

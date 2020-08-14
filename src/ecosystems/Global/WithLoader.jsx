@@ -9,15 +9,15 @@ const override = css`
   margin: 15% auto;
 `;
 
-export const WithLoader = ({ children, loader, isLoading, ...props }) => {
-  const { defer = false, nonBlocking = false } = props;
+export const WithLoader = ({ children, loader, isLoading, nonBlocking, ...props }) => {
+  const { defer = false } = props;
   const loaderName = loader ? (/Loader$/.test(loader) ? loader : `${loader}Loader`) : 'DefaultLoader';
   const LoaderComponent = Loader[loaderName] || DefaultLoader;
 
   // console.debug('WithLoader', { props, loaderName, LoaderComponent });
 
   if (isLoading && !defer) {
-    return <LoaderComponent css={override} size={100} {...nonBlocking} {...props} />;
+    return <LoaderComponent css={override} size={100} nonBlocking={nonBlocking} {...props} />;
   } else if (children) {
     return <WithChildren {...props} children={children} />;
   } else {
