@@ -182,8 +182,6 @@ class Notifier extends EventEmitter {
 
     if (Array.isArray(saved)) {
       this.msgs = saved;
-    } else {
-      console.warn('Bad saved messages format', saved);
     }
 
     return this.msgs;
