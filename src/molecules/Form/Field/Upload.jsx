@@ -23,9 +23,7 @@ const getFileIcon = (filename) => {
 };
 
 export const FormFieldUpload = (props) => {
-  console.debug('FormFieldUpload', props);
-
-  const { api, user, name, value, onChange, onError, onProgress, onFinish, document, translate, ...rest } = props;
+  const { api, user, name, value, onChange, onError, onProgress, onFinish, document, translate, repo, ...rest } = props;
   const { preventUpdate = false, iconOnly = false } = rest;
   // const { docFilepath = 'default', docLifetime = 30, docPermsAllow = ['admin'] } = rest;
 
@@ -59,9 +57,6 @@ export const FormFieldUpload = (props) => {
   }, [ value ]);
 
   const getSignedUrl = (file, callback) => {
-    console.log('getSignedUrl()', { file });
-    // setUploadedUrl(`http://localhost:4000/dev/api/v1/download?Key=${encodeURIComponent(file.name)}`);
-
     if (/image/.test(file.type)) {
       setPreviewUrl(file.preview);
     }
@@ -69,14 +64,11 @@ export const FormFieldUpload = (props) => {
     setShowPreview(true);
 
     api.post('upload', {
-      Key: `${file.type}/${file.name}`,
+      Key: `${repo.full_name}/${Date.now()}-${file.name}`,
       ContentType: file.type
     }).then(resp => resp.json()).then((upload) => {
       const { publicUrl, signedUrl } = upload;
-
-      console.log('Uploaded:', upload);
       onChange({ target: { name, value: publicUrl }});
-
       callback({ signedUrl });
     }).catch(err => {
       console.error(err);
@@ -127,8 +119,6 @@ export const FormFieldUpload = (props) => {
 
     setUploadProgress(args);
 
-    console.log('onUploadProgress', { args });
-
     if (typeof onProgress === 'function') {
       onProgress(args);
     }
@@ -139,8 +129,6 @@ export const FormFieldUpload = (props) => {
   };
 
   const onUploadError = (args) => {
-    console.log('onUploadError', { args });
-
     notifier.bad(args);
 
     setIsUploading(false);
