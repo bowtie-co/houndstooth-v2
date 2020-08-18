@@ -1,15 +1,17 @@
 import React from 'react';
-import { WithApp, WithGithubAuth, WithGithubRepo } from '../../ecosystems';
+import { WithApp, WithGithubAuth, WithGithubRepo, WithLanguage } from '../../ecosystems';
 import { UserSingle } from '../../organisms';
 
 export const UserOnePage = ({ children, ...props }) => {
   return (
     <WithGithubAuth {...props}>
-      <WithGithubRepo>
-        <WithApp>
-          <UserSingle />
-        </WithApp>
-      </WithGithubRepo>
+      <WithLanguage>
+        <WithGithubRepo>
+          <WithApp>
+            <UserSingle />
+          </WithApp>
+        </WithGithubRepo>
+      </WithLanguage>
     </WithGithubAuth>
   );
 };

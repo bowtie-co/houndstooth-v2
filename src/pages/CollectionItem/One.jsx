@@ -1,11 +1,12 @@
 import React from 'react';
 import {
   WithApp,
+  WithCollection,
+  WithCollectionItem,
   WithGithubAuth,
   WithGithubRepo,
   WithJekyll,
-  WithCollection,
-  WithCollectionItem
+  WithLanguage
 } from '../../ecosystems';
 import {
   CollectionItemSingle
@@ -14,17 +15,19 @@ import {
 export const CollectionItemOnePage = ({ children, ...props }) => {
   return (
     <WithGithubAuth {...props}>
-      <WithGithubRepo>
-        <WithJekyll>
-          <WithCollection>
-            <WithCollectionItem>
-              <WithApp>
-                <CollectionItemSingle />
-              </WithApp>
-            </WithCollectionItem>
-          </WithCollection>
-        </WithJekyll>
-      </WithGithubRepo>
+      <WithLanguage>
+        <WithGithubRepo>
+          <WithJekyll>
+            <WithCollection>
+              <WithCollectionItem>
+                <WithApp>
+                  <CollectionItemSingle />
+                </WithApp>
+              </WithCollectionItem>
+            </WithCollection>
+          </WithJekyll>
+        </WithGithubRepo>
+      </WithLanguage>
     </WithGithubAuth>
   );
 };
