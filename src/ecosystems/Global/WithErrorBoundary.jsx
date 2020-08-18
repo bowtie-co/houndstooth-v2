@@ -1,5 +1,5 @@
 import React from 'react';
-import { airbrake } from '../../lib';
+import { airbrake, storage } from '../../lib';
 
 export class WithErrorBoundary extends React.Component {
   constructor(props) {
@@ -21,15 +21,18 @@ export class WithErrorBoundary extends React.Component {
       params: { info }
     });
 
-    /**
-     * TODO: Handling all unexpected errors, add notifier message(s) & redirect (if needed)
-     */
+    storage.clear();
   }
 
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+      return (
+        <div>
+          <h1>Something went wrong.</h1>
+          <p>Please reload your browser and try again.</p>
+        </div>
+      );
     }
 
     return this.props.children;
