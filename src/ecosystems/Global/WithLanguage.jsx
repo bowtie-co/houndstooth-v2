@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from 'react';
-import { language } from '../../lib';
+import React, { useCallback, useEffect, useState } from 'react';
+import { language, storage } from '../../lib';
 import { WithChildren } from '..';
 
 export const WithLanguage = ({ children, ...props }) => {
   // console.debug('WithLanguage', { children, props });
-  const [ lang, setLang ] = useState('en');
+  const [ lang, setLang ] = useState(storage.get('lang') || 'en');
 
   const translate = useCallback((key) => {
     const data = language[lang];
@@ -26,11 +26,15 @@ export const WithLanguage = ({ children, ...props }) => {
     return pointer;
   }, [ lang ]);
 
+  useEffect(() => {
+    storage.set('lang', lang);
+  }, [ lang ]);
+
   const languageProps = {
     languages: Object.keys(language),
     lang,
     setLang,
-    translate,
+    translate
   };
 
   return (
