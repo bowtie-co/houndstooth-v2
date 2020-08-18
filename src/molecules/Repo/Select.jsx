@@ -28,7 +28,7 @@ export const RepoSelect = (props) => {
 
   const handleSelect = (e) => {
     location.href = `/${e.full_name}/collections`;
-  }
+  };
 
   useEffect(() => {
     const updateRepos = (savedRepos) => setRepos(savedRepos);

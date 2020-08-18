@@ -8,7 +8,7 @@ export const BranchSelect = (props) => {
 
   const handleSelect = (e) => {
     location.href = linkWithQueryParams(location.pathname, { ref: e.name });
-  }
+  };
 
   return (
     <Select
