@@ -1,3 +1,4 @@
-# template-react
+# houndstooth-v2
+
 Houndstooth
-CHANGED more
+
