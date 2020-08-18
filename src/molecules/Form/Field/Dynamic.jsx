@@ -2,6 +2,8 @@ import React from 'react';
 import * as Fields from '../Field';
 
 export const FormFieldDynamic = (props) => {
+  console.debug('FormFieldDynamic', props);
+
   const optionsFrom = (list) => Array.isArray(list) ? list.map(item => ({ value: item, label: item })) : [];
 
   const fieldComponentMap = {
