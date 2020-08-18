@@ -4,11 +4,7 @@ import { titleize } from '@bowtie/utils';
 // import * as Fields from '../Field';
 import { FormFieldGroup, FormFieldDynamic } from '../Field';
 
-// console.log('Field import', { Fields });
-
 export const FormFieldRecursive = (props) => {
-  // console.debug('FormFieldRecursive', { props });
-
   const { name, field, fixedOptions, handleChange, path = '', ...rest } = props;
   const currentPath = path === '' ? name : `${path}.${name}`;
 

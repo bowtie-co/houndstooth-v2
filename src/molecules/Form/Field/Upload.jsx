@@ -23,8 +23,9 @@ const getFileIcon = (filename) => {
 };
 
 export const FormFieldUpload = (props) => {
-  const { api, user, name, value, onChange, onError, onProgress, onFinish, document, translate, ...rest } = props;
-  const { preventUpdate = false, iconOnly = false, docFilepath = 'default', docLifetime = 30, docPermsAllow = ['admin'] } = rest;
+  const { api, user, name, value, onChange, onError, onProgress, onFinish, document, translate, repo, ...rest } = props;
+  const { preventUpdate = false, iconOnly = false } = rest;
+  // const { docFilepath = 'default', docLifetime = 30, docPermsAllow = ['admin'] } = rest;
 
   // const [ uploadedUrl, setUploadedUrl ] = useState();
   const [ previewUrl, setPreviewUrl ] = useState();
@@ -56,60 +57,67 @@ export const FormFieldUpload = (props) => {
   }, [ value ]);
 
   const getSignedUrl = (file, callback) => {
-    console.log('getSignedUrl()', { file });
-    // setUploadedUrl(`http://localhost:4000/dev/api/v1/download?Key=${encodeURIComponent(file.name)}`);
-
     if (/image/.test(file.type)) {
       setPreviewUrl(file.preview);
     }
 
     setShowPreview(true);
 
-    if (document) {
-      api.post('documents', {
-        filepath: docFilepath,
-        filename: file.name,
-        filetype: file.type,
-        filesize: file.size,
-        lifetime: docLifetime,
-        owner: user.login,
-        permissions: {
-          allow: docPermsAllow
-        }
-      }).then(resp => resp.json()).then((document) => {
-        console.log('Document', document);
-        onChange(document);
-        notifier.success(translate('documents.created'));
-        // setPreviewUrl(document.getObjectUrl);
-        callback({ signedUrl: document.putObjectUrl });
-      }).catch(err => {
-        console.error(err);
-        notifier.bad(err);
-      });
-    } else {
-      api.post('upload', {
-        Key: `${file.type}/${file.name}`,
-        ContentType: file.type
-      }).then(resp => resp.json()).then((upload) => {
-        const { publicUrl, signedUrl } = upload;
+    api.post('upload', {
+      Key: `${repo.full_name}/${Date.now()}-${file.name}`,
+      ContentType: file.type
+    }).then(resp => resp.json()).then((upload) => {
+      const { publicUrl, signedUrl } = upload;
+      onChange({ target: { name, value: publicUrl }});
+      callback({ signedUrl });
+    }).catch(err => {
+      console.error(err);
+      notifier.bad(err);
+    });
 
-        console.log('Uploaded:', upload);
-        onChange({ target: { name, value: publicUrl }});
+    // if (document) {
+    //   api.post('documents', {
+    //     filepath: docFilepath,
+    //     filename: file.name,
+    //     filetype: file.type,
+    //     filesize: file.size,
+    //     lifetime: docLifetime,
+    //     owner: user.login,
+    //     permissions: {
+    //       allow: docPermsAllow
+    //     }
+    //   }).then(resp => resp.json()).then((document) => {
+    //     console.log('Document', document);
+    //     onChange(document);
+    //     notifier.success(translate('documents.created'));
+    //     // setPreviewUrl(document.getObjectUrl);
+    //     callback({ signedUrl: document.putObjectUrl });
+    //   }).catch(err => {
+    //     console.error(err);
+    //     notifier.bad(err);
+    //   });
+    // } else {
+    //   api.post('upload', {
+    //     Key: `${file.type}/${file.name}`,
+    //     ContentType: file.type
+    //   }).then(resp => resp.json()).then((upload) => {
+    //     const { publicUrl, signedUrl } = upload;
 
-        callback({ signedUrl });
-      }).catch(err => {
-        console.error(err);
-        notifier.bad(err);
-      });
-    }
+    //     console.log('Uploaded:', upload);
+    //     onChange({ target: { name, value: publicUrl }});
+
+    //     callback({ signedUrl });
+    //   }).catch(err => {
+    //     console.error(err);
+    //     notifier.bad(err);
+    //   });
+    // }
   };
 
   const onUploadProgress = (args) => {
     if (!isUploading) setIsUploading(true);
 
     setUploadProgress(args);
-
-    console.log('onUploadProgress', { args });
 
     if (typeof onProgress === 'function') {
       onProgress(args);
@@ -121,8 +129,6 @@ export const FormFieldUpload = (props) => {
   };
 
   const onUploadError = (args) => {
-    console.log('onUploadError', { args });
-
     notifier.bad(args);
 
     setIsUploading(false);
