@@ -1,12 +1,14 @@
 import React from 'react';
-import { WithApp } from '../../ecosystems';
+import { WithApp, WithLanguage } from '../../ecosystems';
 import { DebugProps, AppHome } from '../../organisms';
 
 export const AppHomePage = (props) => {
   return (
-    <WithApp {...props}>
-      <AppHome />
-      <DebugProps debug {...props} />
-    </WithApp>
+    <WithLanguage>
+      <WithApp {...props}>
+        <AppHome />
+        <DebugProps debug {...props} />
+      </WithApp>
+    </WithLanguage>
   );
 };

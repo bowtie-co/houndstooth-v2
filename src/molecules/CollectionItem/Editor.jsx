@@ -8,7 +8,7 @@ import { notifier } from '../../lib';
 export const CollectionItemEditor = (props) => {
   // console.debug('CollectionItemEditor', { props });
 
-  const { api, itemContent, setItemContent, disabled = false } = props;
+  const { api, itemContent, setItemContent, repo, disabled = false } = props;
 
   const onEditorChange = (data) => setItemContent(data);
 
@@ -17,7 +17,7 @@ export const CollectionItemEditor = (props) => {
     const blob = blobInfo.blob();
 
     api.post('upload', {
-      Key: `upload/${blob.type}/${Date.now()}-${blob.name}`,
+      Key: `${repo.full_name}/${Date.now()}-${blob.name}`,
       ContentType: blob.type
     }).then(resp => resp.json()).then((upload) => {
       const { publicUrl, signedUrl } = upload;
