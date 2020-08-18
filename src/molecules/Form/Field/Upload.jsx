@@ -26,7 +26,8 @@ export const FormFieldUpload = (props) => {
   console.debug('FormFieldUpload', props);
 
   const { api, user, name, value, onChange, onError, onProgress, onFinish, document, translate, ...rest } = props;
-  const { preventUpdate = false, iconOnly = false, docFilepath = 'default', docLifetime = 30, docPermsAllow = ['admin'] } = rest;
+  const { preventUpdate = false, iconOnly = false } = rest;
+  // const { docFilepath = 'default', docLifetime = 30, docPermsAllow = ['admin'] } = rest;
 
   // const [ uploadedUrl, setUploadedUrl ] = useState();
   const [ previewUrl, setPreviewUrl ] = useState();
