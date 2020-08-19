@@ -18,8 +18,8 @@ export const RepoCards = ({ ...props }) => {
   useEffect(() => {
     const indexStart = (page - 1) * perPage;
     const indexEnd = indexStart + perPage;
-
-    setPageRepos(repos && repos.slice(indexStart, indexEnd));
+    const selectedRepos = repos && Array.isArray(repos) ? repos.slice(indexStart, indexEnd) : [];
+    setPageRepos(selectedRepos);
   }, [ repos, page ]);
 
   useEffect(() => {
