@@ -3,7 +3,7 @@ import { Input } from 'reactstrap';
 import { FormGroup } from '../';
 
 export const FormFieldCheckbox = (props) => {
-  const { onChange, cleanObjectsFromDom, clearable, ...inputProps } = props;
+  const { onChange, clearable } = props;
   const { edited, name, className = '', value, ...rest } = props;
   // const sanitizedProps = cleanObjectsFromDom(inputProps);
 
