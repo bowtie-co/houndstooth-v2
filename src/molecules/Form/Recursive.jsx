@@ -98,6 +98,11 @@ export const FormRecursive = (props) => {
   );
 };
 
+FormRecursive.defaultProps = {
+  formData: {},
+  onSubmit: () => {}
+};
+
 FormRecursive.propTypes = {
   formData: PropTypes.object.isRequired,
   fields: PropTypes.object,
