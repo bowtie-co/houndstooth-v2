@@ -30,6 +30,7 @@ export const FormFieldRecursive = (props) => {
           field.map((obj, i) => {
             return (
               <FormFieldGroup
+                key={i}
                 title={`#${i + 1}`}
                 fields={obj}
                 path={`${currentPath}.${i}`}

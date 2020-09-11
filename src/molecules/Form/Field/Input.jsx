@@ -12,7 +12,7 @@ export const FormFieldInput = (props) => {
   return (
     <FormGroup className={`${className} ${edited ? 'success-highlight' : ''}`} {...props}>
       <div className='flex'>
-        <Input value={value || ''} {...rest} />
+        <Input value={value || ''} onChange={onChange} />
         {clearable && value !== null && (
           <span className='flex center' style={{ border: '1px solid #c2c2c2', borderLeft: 'none' }}>
             <AppIcon iconName='times' onClick={() => onChange({ target: { value: null } })} />
