@@ -253,62 +253,62 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
     setOpenPull(findPull);
   }, [ branch, pulls ]);
 
-  useEffect(() => {
-    const compareCommits = async () => {
-      let compareResponse;
+  // useEffect(() => {
+  //   const compareCommits = async () => {
+  //     let compareResponse;
 
-      try {
-        if (!repo || !branch || !openPull || branch === repo.default_branch) {
-          console.debug('WithRepoControls.compareCommits(): Skipping', { repo, branch, openPull });
-          return;
-        }
+  //     try {
+  //       if (!repo || !branch || !openPull || branch === repo.default_branch) {
+  //         console.debug('WithRepoControls.compareCommits(): Skipping', { repo, branch, openPull });
+  //         return;
+  //       }
 
-        const headers = {
-          'If-None-Match': ''
-        };
+  //       const headers = {
+  //         'If-None-Match': ''
+  //       };
 
-        compareResponse = await github.octokit.repos.compareCommits(Object.assign({ headers }, repoProps, {
-          base: repo.default_branch,
-          head: branch
-        }));
+  //       compareResponse = await github.octokit.repos.compareCommits(Object.assign({ headers }, repoProps, {
+  //         base: repo.default_branch,
+  //         head: branch
+  //       }));
 
-        const { data } = compareResponse;
+  //       const { data } = compareResponse;
 
-        if (openPull && data.behind_by && data.behind_by > 0) {
-          await github.octokit.pulls.updateBranch(Object.assign({}, repoProps, {
-            pull_number: openPull.number,
-            // expected_head_sha: data.commits[0].sha
-          }));
-        }
-      } catch (err) {
-        const { data } = compareResponse;
+  //       if (openPull && data.behind_by && data.behind_by > 0) {
+  //         await github.octokit.pulls.updateBranch(Object.assign({}, repoProps, {
+  //           pull_number: openPull.number,
+  //           // expected_head_sha: data.commits[0].sha
+  //         }));
+  //       }
+  //     } catch (err) {
+  //       const { data } = compareResponse;
 
-        if (data && data.files && data.files.length > 0) {
-          const conflicts = [];
+  //       if (data && data.files && data.files.length > 0) {
+  //         const conflicts = [];
 
-          async.each(data.files, (file, next) => {
-            const baseParams = Object.assign({}, repoProps, { path: file.filename, ref: repo.default_branch });
+  //         async.each(data.files, (file, next) => {
+  //           const baseParams = Object.assign({}, repoProps, { path: file.filename, ref: repo.default_branch });
 
-            github.getContents(baseParams).then(data => {
-              conflicts.push(file);
-              next();
-            }).catch(err => {
-              console.warn(err);
-              next();
-            });
-          }, (err) => {
-            if (err) {
-              console.error(err);
-            }
+  //           github.getContents(baseParams).then(data => {
+  //             conflicts.push(file);
+  //             next();
+  //           }).catch(err => {
+  //             console.warn(err);
+  //             next();
+  //           });
+  //         }, (err) => {
+  //           if (err) {
+  //             console.error(err);
+  //           }
 
-            setBranchConflicts(conflicts);
-          });
-        }
-      }
-    };
+  //           setBranchConflicts(conflicts);
+  //         });
+  //       }
+  //     }
+  //   };
 
-    compareCommits();
-  }, [ github, repo, branch, openPull, repoProps ]);
+  //   compareCommits();
+  // }, [ github, repo, branch, openPull, repoProps ]);
 
   const repoControlProps = {
     pulls,
