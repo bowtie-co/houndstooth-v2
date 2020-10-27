@@ -314,6 +314,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
     pulls,
     openPull,
     branchConflicts,
+    setBranchConflicts,
     branchStatus,
     deployedUrl,
     refStatus,
