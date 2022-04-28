@@ -111,6 +111,15 @@ export const AppNavbar = ({ children, ...props }) => {
             <LanguageSelect {...props} />
           )}
 
+					<NavItem>
+						<NavLink href='https://houndstooth.work' target='_blank' rel='noopener noreferrer'>
+							<section>
+								<AppIcon className='fas fa-code' color='white' size='sm'/>
+								<div className="small">{translate('navbar.docs')}</div>
+							</section>
+						</NavLink>
+					</NavItem>
+
           {repo && (
             <NavItem>
               <NavLink href={repo.html_url} target='_blank' rel='noopener noreferrer'>
