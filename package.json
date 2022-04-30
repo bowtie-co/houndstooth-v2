@@ -18,7 +18,6 @@
     "hookrouter": "^1.2.3",
     "js-yaml": "^3.13.1",
     "moment": "^2.24.0",
-    "node-sass": "^4.14.1",
     "pubnub": "^4.27.4",
     "qs": "^6.9.3",
     "react": "^16.13.1",
@@ -35,6 +34,7 @@
     "react-select": "^3.1.0",
     "react-spinners": "^0.6.1",
     "reactstrap": "^8.4.1",
+    "sass": "^1.51.0",
     "slugify": "^1.4.0",
     "toml": "^3.0.0",
     "uuid": "^3.4.0"

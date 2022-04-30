@@ -48,7 +48,7 @@
   .opaqueBg * {
   color: #1e1f2047;
   z-index: 2;
-  &h3.subtitle {
+  & h3.subtitle {
     color: #1e1f2047;
     text-decoration: none;
     }
@@ -108,11 +108,11 @@
   &:focus, &:active {
     border-color: #d62b00 !important;
     outline: 0 !important;
-    box-shadow: 0 0 0 0.2rem rgba(255, 53, 0s,.25) !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 53, 0,.25) !important;
   }
   .select-input input {
     &:focus, &:active {
-      background-color: rgba(255, 53, 0s,.25) !important;
+      background-color: rgba(255, 53, 0,.25) !important;
       outline: 0 !important;
     }
   }
@@ -120,11 +120,11 @@
 .Select-menu-outer div{
   background-color: white;
   &.is-focused {
-    background-color: rgba(255, 53, 0s,.25) !important;
+    background-color: rgba(255, 53, 0,.25) !important;
   }
   //background-color: rgba(255, 53, 0s,.5) !important;
   &:focus, &:active, &:hover {
-    background-color: rgba(255, 53, 0s,.25) !important;
+    background-color: rgba(255, 53, 0,.25) !important;
     outline: 0 !important;
   }
 }
@@ -291,7 +291,7 @@ div.Select-menu-outer {
     &:focus, &:active {
       border-color: #d62b00;
       outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba(255, 53, 0s,.25);
+      box-shadow: 0 0 0 0.2rem rgba(255, 53, 0,.25);
     }
   }
 }
