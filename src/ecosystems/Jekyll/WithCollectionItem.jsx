@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import * as yaml from 'js-yaml';
-import slugify from 'slugify';
+// import slugify from 'slugify';
 import { WithLoader, WithChildren } from '../';
 import { notifier } from '../../lib';
 
@@ -39,12 +39,9 @@ export const WithCollectionItem = ({ children, ...props }) => {
   }, [itemName, defaultName]);
 
   const updateItemName = useCallback((rawName) => {
-    // TODO: @Brennan - Sanitize for spanish?
-    let newName = slugify(rawName).replace(/[^a-z0-9\s-_.]/gmi, '');
+    let newName = rawName.replace(/[^a-z0-9-_.]/gi, '-');
 
     if (newName && newName !== '' && !/\.(html|md)$/i.test(newName)) newName += '.md';
-
-    // console.debug('updateItemName', rawName, newName);
 
     setItemName(newName);
   }, [setItemName]);

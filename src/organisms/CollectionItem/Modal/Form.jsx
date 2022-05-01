@@ -39,7 +39,7 @@ export const CollectionItemModalForm = ({ children, isOpen, ...props }) => {
         <ModalHeader toggle={toggleModal()}>
           {translate('collections.entry_name')}
         </ModalHeader>
-        <ModalBody className='stuff-n-things'>
+        <ModalBody>
           <FormFieldInput
             value={isValidName() ? friendlyName(itemName) : defaultName()}
             label={translate('collections.entry_name')}
@@ -47,6 +47,13 @@ export const CollectionItemModalForm = ({ children, isOpen, ...props }) => {
             errorMessage={!isValidName() ? 'Invalid name' : isNameTaken() && 'Already exists'}
             onChange={(e) => updateItemName(e.target.value)}
           />
+          <p>
+            Enter filename for new entry.
+            <ul>
+              <li>Unsupported characters will be replaced with "-"</li>
+              <li>Allowed characters: <pre>a-z0-9-_.</pre></li>
+            </ul>
+          </p>
         </ModalBody>
         <ModalFooter>
           {isValidName() && !isNameTaken() && (
