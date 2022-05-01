@@ -46,7 +46,8 @@ export const en = {
     language: 'Language',
     source: 'Source',
     login: 'Login with',
-    exit: 'Exit'
+    exit: 'Exit',
+		docs: 'Docs'
   },
   sidebar: {
     repos: 'Repos',

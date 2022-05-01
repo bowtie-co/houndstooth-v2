@@ -12,10 +12,10 @@ import {
 } from 'reactstrap';
 import { HoundstoothLogo, AppIcon, AppButton } from '../../atoms';
 import { BranchSelect, LanguageSelect, RepoSelect } from '../../molecules';
+const { REACT_APP_DOCS_URL = 'https://houndstooth.work' } = process.env;
 
 export const AppNavbar = ({ children, ...props }) => {
   const { auth, languages, translate, user, repo, branch, openPull, deployedUrl, isPullPending, submitChanges, pulls } = props;
-
   // console.debug('AppNavbar', { props });
 
   const [ isNavOpen, setIsNavOpen ] = useState(false);
@@ -110,6 +110,15 @@ export const AppNavbar = ({ children, ...props }) => {
           {languages.length > 1 && (
             <LanguageSelect {...props} />
           )}
+
+					<NavItem>
+						<NavLink href={REACT_APP_DOCS_URL} target='_blank' rel='noopener noreferrer'>
+							<section>
+								<AppIcon className='fas fa-code' color='white' size='sm'/>
+								<div className="small">{translate('navbar.docs')}</div>
+							</section>
+						</NavLink>
+					</NavItem>
 
           {repo && (
             <NavItem>

@@ -3,7 +3,7 @@ import { notifier, storage } from '../../lib';
 import { WithLoader, WithChildren, WithServicePubnub, WithGithubRepoControls } from '../';
 
 export const WithGithubRepo = ({ children, ...props }) => {
-  console.debug('WithGithubRepo', { children, props });
+  // console.debug('WithGithubRepo', { children, props });
 
   // const { user } = props;
   const [ repo, setRepo ] = useState();

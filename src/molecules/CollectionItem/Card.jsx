@@ -2,7 +2,7 @@ import React from 'react';
 import { AppLink, CardBasic } from '../../atoms';
 
 export const CollectionItemCard = ({ entry, ...props }) => {
-  console.debug('CollectionItemCard', { entry, props });
+  // console.debug('CollectionItemCard', { entry, props });
 
   const { repo, linkWithQueryParams, pageProps } = props;
   const { collection } = pageProps;

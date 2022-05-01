@@ -19,7 +19,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
     if (branch) {
       github.sumStatuses(Object.assign({}, repoProps, { ref: branch, only: GithubCommitStatus.success })).then(statusSummary => {
         setBranchStatus(statusSummary);
-        console.log('set statusSummary', statusSummary);
+        // console.debug('set statusSummary', statusSummary);
 
         if (statusSummary && statusSummary.deploy && statusSummary.deploy.target_url) {
           setDeployedUrl(statusSummary.deploy.target_url);
@@ -64,7 +64,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
           title: `${translate('changes.pr_ready_title')} ${branch}`,
         }));
 
-        console.log('WithGithubRepoControls.updatePull()', { result });
+        // console.debug('WithGithubRepoControls.updatePull()', { result });
 
         setOpenPull(result.data);
 
@@ -113,7 +113,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
           currentPull = result.data;
         }
 
-        console.log('WithGithubRepoControls.updatePull()', { currentPull });
+        // console.debug('WithGithubRepoControls.updatePull()', { currentPull });
 
         setOpenPull(currentPull);
 
@@ -133,7 +133,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
   }, [ github, repo, branch, repoProps, translate ]);
 
   const approveChanges = useCallback((pull_number) => {
-    console.log('WithGithubRepoControls.approveChanges()', pull_number);
+    // console.debug('WithGithubRepoControls.approveChanges()', pull_number);
 
     // TODO: Check / enforce admin repo access here? Permissions should ultimately rely on remote repository
 
@@ -148,7 +148,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
 
         setPulls(pulls.filter(pr => pr.number !== pull_number));
 
-        console.log('WithGithubRepoControls.mergePull()', { result });
+        console.debug('WithGithubRepoControls.mergePull()', { result });
       } catch (err) {
         console.warn('WithGithubRepoControls.mergePull(): Caught', err.message || err);
         notifier.bad(err);
@@ -197,7 +197,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
           }).catch(next);
         }).catch(err => {
           console.warn(err);
-          console.warn('Skipping force resolve overwrite (unable to compare/resolve conflict)', fileConflict);
+          // console.debug('Skipping force resolve overwrite (unable to compare/resolve conflict)', fileConflict);
           next();
         });
       }, err => {
@@ -228,7 +228,7 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
     github.pulls(repoProps).then(data => {
       setPulls(data);
 
-      console.log('Loaded pulls', { data });
+      // console.debug('Loaded pulls', { data });
 
       // TODO: Find or create PR (based on current user/branch)
       // const open = data.find(pr => pr.)
@@ -242,13 +242,13 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
 
   useEffect(() => {
     if (!pulls) {
-      console.log('Skip pull find (missing/invalid pulls)');
+      // console.debug('Skip pull find (missing/invalid pulls)');
       return;
     }
 
     const findPull = pulls.find(pull => pull.head && pull.head.ref === branch);
 
-    console.log('findPull', { findPull });
+    // console.debug('findPull', { findPull });
 
     setOpenPull(findPull);
   }, [ branch, pulls ]);

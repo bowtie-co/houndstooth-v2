@@ -5,7 +5,7 @@ import CreatableSelect from 'react-select/creatable';
 import { FormGroup } from '../';
 
 export const FormFieldSelectMulti = (props) => {
-  console.log('FormFieldSelectMulti', { props });
+  // console.debug('FormFieldSelectMulti', { props });
 
   const { id, name, async, onChange, creatable, options, optionsFrom, className = '', edited, value = [], ...rest } = props;
 
@@ -35,7 +35,7 @@ export const FormFieldSelectMulti = (props) => {
     options: options || defaultValue,
     defaultValue,
     onChange: (val) => {
-      console.log('SelectMulti.onChange()', val);
+      // console.debug('SelectMulti.onChange()', val);
       onChange({ target: { name, value: val ? val.map(v => v.value) : [] }});
     }
   };

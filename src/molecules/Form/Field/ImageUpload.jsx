@@ -21,8 +21,8 @@ const handleFileDrop = ({ name, onChange, togglePreview }) => (accepted, rejecte
       onChange({ target: { name, value: documentBase64 } });
     };
 
-    reader.onabort = () => console.log('file reading was aborted');
-    reader.onerror = () => console.log('file reading has failed');
+    reader.onabort = () => console.debug('file reading was aborted');
+    reader.onerror = () => console.debug('file reading has failed');
 
     reader.readAsDataURL(file);
     togglePreview(true);

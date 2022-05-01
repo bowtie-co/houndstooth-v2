@@ -10,7 +10,6 @@ export const WithGithubAuth = ({ children, ...props }) => {
 
   useEffect(() => {
     auth.on('authorized', (authResult) => {
-      console.error('AUTHORIZED!', authResult);
       setToken(authResult.access_token);
       setIsAuthorized(true);
     });
