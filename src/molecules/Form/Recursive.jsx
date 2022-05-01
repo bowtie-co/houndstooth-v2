@@ -50,7 +50,7 @@ export const FormRecursive = (props) => {
     if (typeof onChange === 'function') {
       onChange(fieldsCopy);
     } else {
-      console.log('handleChange - onChange is not a function:', { onChange });
+      // console.debug('handleChange - onChange is not a function:', { onChange });
     }
   };
 

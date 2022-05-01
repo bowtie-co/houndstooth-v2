@@ -3,7 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { AppButton } from '../../../atoms';
 
 export const RepoModalResolve = (props) => {
-  console.debug('RepoModalResolve', props);
+  // console.debug('RepoModalResolve', props);
 
   const { branchConflicts, resolveConflicts, translate } = props;
   // const [ showModal, setShowModal ] = useState(true);

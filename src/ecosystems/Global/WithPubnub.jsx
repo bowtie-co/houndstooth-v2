@@ -23,7 +23,7 @@ export const WithServicePubnub = ({ children, ...props }) => {
         console.debug('PN MSG', { channel, action, subject });
 
         if (message.service !== serviceName) {
-          // console.debug('Ignoring message', message);
+          console.debug('Ignoring message', message);
           return;
         }
       }

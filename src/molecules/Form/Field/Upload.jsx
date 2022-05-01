@@ -8,7 +8,7 @@ import { notifier } from '../../../lib';
 
 const getFileExt = (filename) => {
   if (!filename || !/[^.]+\.[^.]/.test(filename)) {
-    console.warn('WithDocuments.getFileExt() - Cannot get ext from filename:', filename);
+    // console.debug('WithDocuments.getFileExt() - Cannot get ext from filename:', filename);
     return null;
   }
 
