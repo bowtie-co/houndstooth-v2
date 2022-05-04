@@ -15,3 +15,4 @@ export * from './SelectMulti';
 export * from './TextArea';
 export * from './Time';
 export * from './Upload';
+export * from './Hint';
