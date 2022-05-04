@@ -4,6 +4,7 @@ import { AppIcon } from '../../../atoms';
 
 export const FormFieldHint = (props) => {
 	const { value, edited, className = '' } = props;
+	
 	return (
 		<FormGroup className={`${className} ${edited ? 'success-highlight' : ''}`} {...props}>
 			<div className='flex'>
