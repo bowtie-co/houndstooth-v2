@@ -114,7 +114,7 @@ export const AppNavbar = ({ children, ...props }) => {
 					<NavItem>
 						<NavLink href={REACT_APP_DOCS_URL} target='_blank' rel='noopener noreferrer'>
 							<section>
-								<AppIcon className='fas fa-code' color='white' size='sm'/>
+								<AppIcon className='fas fa-code' size='sm'/>
 								<div className="small">{translate('navbar.docs')}</div>
 							</section>
 						</NavLink>
@@ -122,9 +122,9 @@ export const AppNavbar = ({ children, ...props }) => {
 
           {repo && (
             <NavItem>
-              <NavLink href={repo.html_url} target='_blank' rel='noopener noreferrer'>
-                <section>
-                  <AppIcon className='fab fa-github' color='white' size='sm' />
+							<NavLink href={repo.html_url} target='_blank' rel='noopener noreferrer'>
+                <section> 
+                  <AppIcon className='fab fa-github' size='sm' />
                   <div className="small">{translate('navbar.source')}</div>
                 </section>
               </NavLink>
@@ -133,7 +133,7 @@ export const AppNavbar = ({ children, ...props }) => {
 
           {user && (
             <NavItem>
-              <NavLink onClick={() => auth.logout()} href='/' className='logout-btn'>
+							<NavLink onClick={() => auth.logout()} href='/' className='logout-btn'>
                 <section>
                   <AppIcon className='fa fa-sign-out' size='sm' />
                   <div className="small">{translate('navbar.exit')}</div>
