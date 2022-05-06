@@ -8,10 +8,10 @@ export const FormFieldHint = (props) => {
 	return (
 		<FormGroup className={`${className} ${edited ? 'success-highlight' : ''}`} {...props}>
 			<div className='flex'>
-				<span>
+				<pre>
 					<AppIcon className='far fa-lightbulb' />
 					{value}
-				</span>
+				</pre>
 			</div>
 		</FormGroup>
 	);
