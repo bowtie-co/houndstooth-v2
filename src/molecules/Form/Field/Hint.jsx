@@ -7,7 +7,7 @@ export const FormFieldHint = (props) => {
   let hintValue = value;
 
   if (!value || value.trim() === '') {
-    hintValue = 'Add a hint value in your files front matter'
+    hintValue = 'Add a hint value in your files front matter';
   }
 
   return (
