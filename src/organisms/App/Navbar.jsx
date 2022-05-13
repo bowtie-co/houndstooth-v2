@@ -111,18 +111,18 @@ export const AppNavbar = ({ children, ...props }) => {
             <LanguageSelect {...props} />
           )}
 
-					<NavItem>
-						<NavLink href={REACT_APP_DOCS_URL} target='_blank' rel='noopener noreferrer'>
-							<section>
-								<AppIcon className='fas fa-code' size='sm'/>
-								<div className="small">{translate('navbar.docs')}</div>
-							</section>
-						</NavLink>
-					</NavItem>
+          <NavItem>
+            <NavLink href={REACT_APP_DOCS_URL} target='_blank' rel='noopener noreferrer'>
+              <section>
+                <AppIcon className='fas fa-code' size='sm'/>
+                <div className="small">{translate('navbar.docs')}</div>
+              </section>
+            </NavLink>
+          </NavItem>
 
           {repo && (
             <NavItem>
-							<NavLink href={repo.html_url} target='_blank' rel='noopener noreferrer'>
+              <NavLink href={repo.html_url} target='_blank' rel='noopener noreferrer'>
                 <section> 
                   <AppIcon className='fab fa-github' size='sm' />
                   <div className="small">{translate('navbar.source')}</div>
@@ -133,7 +133,7 @@ export const AppNavbar = ({ children, ...props }) => {
 
           {user && (
             <NavItem>
-							<NavLink onClick={() => auth.logout()} href='/' className='logout-btn'>
+              <NavLink onClick={() => auth.logout()} href='/' className='logout-btn'>
                 <section>
                   <AppIcon className='fa fa-sign-out' size='sm' />
                   <div className="small">{translate('navbar.exit')}</div>

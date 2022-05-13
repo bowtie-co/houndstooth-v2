@@ -25,7 +25,7 @@ export const FormFieldDynamic = (props) => {
     text: 'FormFieldTextArea',
     textarea: 'FormFieldTextArea',
     input: 'FormFieldInput',
-		hint: 'FormFieldHint',
+    hint: 'FormFieldHint',
   };
 
   const nameMatchers = {
@@ -41,7 +41,7 @@ export const FormFieldDynamic = (props) => {
     time: /_(at|time)$/,
     datetime: /_(onat|on_at|datetime)$/,
     textarea: /_?(textarea|body|content)$/,
-		hint: /_?(hints?)$/,
+    hint: /_?(hints?)$/,
   };
 
   const propMatchers = {
