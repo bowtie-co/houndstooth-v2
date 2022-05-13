@@ -25,14 +25,14 @@ export const WithSidebar = ({ children, className, ...props }) => {
 
   useEffect(() => {
     if (!pubnub) {
-      console.debug('Skip effect, PubNub is not configured');
+      // console.debug('Skip effect, PubNub is not configured');
       return;
     }
 
     if (branchRef) {
       const listener = {
         status: (statusEvent) => {
-          console.debug('PN Status', statusEvent);
+          // console.debug('PN Status', statusEvent);
         },
         message: (msg) => {
           const { channel, message } = msg;
@@ -44,18 +44,18 @@ export const WithSidebar = ({ children, className, ...props }) => {
             case 'builds':
               // setBuilds(createOrUpdate(builds, subject));
               if (subject && subject.source_version === branchRef) {
-                console.log('Build update for ref', branchRef, subject);
+                // console.debug('Build update for ref', branchRef, subject);
                 storage.set(`build-${branchRef}`, subject);
                 setBuildData(subject);
               } else {
-                console.log('IGNORE: Msg not for ref', branchRef, subject);
+                console.debug('IGNORE: Msg not for ref', branchRef, subject);
               }
               break;
             case 'deploys':
               // setDeploys(createOrUpdate(deploys, subject));
               break;
             default:
-              console.warn('Received message for unexpected channel:', channel);
+              console.debug('Received message for unexpected channel:', channel);
               break;
           }
         }

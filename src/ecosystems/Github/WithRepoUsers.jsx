@@ -47,7 +47,7 @@ export const WithGithubRepoUsers = ({ children, ...props }) => {
         const collabUserIds = data.map(u => u.id);
         const filteredMembers = members.data.filter(m => !collabUserIds.includes(m.id));
 
-        console.log('GH ORG Members', members, collabUserIds, filteredMembers);
+        // console.debug('GH ORG Members', members, collabUserIds, filteredMembers);
 
         setOtherMembers(filteredMembers);
       });
@@ -67,7 +67,7 @@ export const WithGithubRepoUsers = ({ children, ...props }) => {
           team_slug: team.slug,
           username,
         }).then(resp => {
-          console.log('remove user from team resp', resp);
+          // console.debug('remove user from team resp', resp);
           next();
         }).catch(err => {
           console.warn('remove user from team error', err);
@@ -77,7 +77,7 @@ export const WithGithubRepoUsers = ({ children, ...props }) => {
         if (err) {
           console.warn('Failed revoking user team access', err);
         } else {
-          console.log('User team access revoked.', username, teams);
+          // console.debug('User team access revoked.', username, teams);
         }
 
         if (refresh) {

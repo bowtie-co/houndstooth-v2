@@ -8,11 +8,8 @@ import { notifier } from '../../lib';
 export const CollectionItemEditor = (props) => {
   // console.debug('CollectionItemEditor', { props });
 
-  const { api, itemContent, setItemContent, repo, disabled = false } = props;
+  const { api, itemContent, editorRef, repo, disabled = false } = props;
 
-  const onEditorChange = (data) => setItemContent(data);
-
-  // TODO: Upgrade inline wysiwyg uploads to use dedicated s3 asset uploads
   const onUpload = (blobInfo, success, failure) => {
     const blob = blobInfo.blob();
 
@@ -40,10 +37,10 @@ export const CollectionItemEditor = (props) => {
     <div className='wysiwyg-section tab-content-card'>
       <Editor
         // inline
+        onInit={(evt, editor) => editorRef.current = editor}
         apiKey={process.env.REACT_APP_TINY_API_KEY}
         disabled={disabled}
         initialValue={itemContent}
-        onEditorChange={onEditorChange}
         init={{
           height: '100%',
           toolbar_drawer: 'floating',

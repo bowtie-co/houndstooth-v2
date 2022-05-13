@@ -44,7 +44,8 @@ export const es = {
     language: 'Idioma',
     source: 'Fuente',
     login: 'Iniciar con',
-    exit: 'Salir'
+    exit: 'Salir',
+		docs: 'Documentos'
   },
   sidebar: {
     repos: 'Repositorios',

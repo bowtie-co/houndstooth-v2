@@ -8,7 +8,7 @@ export const WithGithubPulls = ({ children, ...props }) => {
   const { github, pageProps, translate } = props;
 
   const approveChanges = useCallback((pull_number) => {
-    console.log('WithGithubRepoControls.approveChanges()', pull_number);
+    // console.debug('WithGithubRepoControls.approveChanges()', pull_number);
 
     // TODO: Check / enforce admin repo access here? Permissions should ultimately rely on remote repository
 
@@ -23,7 +23,7 @@ export const WithGithubPulls = ({ children, ...props }) => {
 
         setPulls(pulls.filter(pr => pr.number !== pull_number));
 
-        console.log('WithGithubRepoControls.mergePull()', { result });
+        console.debug('WithGithubRepoControls.mergePull()', { result });
       } catch (err) {
         console.warn('WithGithubRepoControls.mergePull(): Caught', err.message || err);
         notifier.bad(err);

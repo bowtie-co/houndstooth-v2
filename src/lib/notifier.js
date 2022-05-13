@@ -211,7 +211,7 @@ class Notifier extends EventEmitter {
       color
     };
 
-    console.log('Notifier.msg()', { msg });
+    // console.debug('Notifier.msg()', { msg });
 
     this.msgs.push(msg);
 

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import * as yaml from 'js-yaml';
-import slugify from 'slugify';
+// import slugify from 'slugify';
 import { WithLoader, WithChildren } from '../';
 import { notifier } from '../../lib';
 
@@ -12,6 +12,7 @@ export const WithCollectionItem = ({ children, ...props }) => {
   const [itemFields, setItemFields] = useState({});
   const [itemContent, setItemContent] = useState('');
   const [loading, setLoading] = useState(true);
+  const editorRef = useRef(null);
   const isItemNew = () => (entry === '_new');
 
   const mergeFile = useCallback((updates) => {
@@ -38,12 +39,9 @@ export const WithCollectionItem = ({ children, ...props }) => {
   }, [itemName, defaultName]);
 
   const updateItemName = useCallback((rawName) => {
-    // TODO: @Brennan - Sanitize for spanish?
-    let newName = slugify(rawName).replace(/[^a-z0-9\s-_.]/gmi, '');
+    let newName = rawName.replace(/[^a-z0-9-_.]/gi, '-');
 
     if (newName && newName !== '' && !/\.(html|md)$/i.test(newName)) newName += '.md';
-
-    console.log('updateItemName', rawName, newName);
 
     setItemName(newName);
   }, [setItemName]);
@@ -87,7 +85,7 @@ export const WithCollectionItem = ({ children, ...props }) => {
     const { name, path, sha } = itemFile;
 
     const message = `[HT] ${sha ? 'Updated' : 'Created'} file: ${path}`;
-    const content = Buffer.from(`---\n${yaml.safeDump(itemFields)}\n---\n${itemContent ? itemContent.trim() : ''}\n`).toString('base64');
+    const content = Buffer.from(`---\n${yaml.safeDump(itemFields)}\n---\n${editorRef.current ? editorRef.current.getContent() : ''}\n`).toString('base64');
     const params = Object.assign({}, repoProps, {
       sha,
       path,
@@ -180,6 +178,7 @@ export const WithCollectionItem = ({ children, ...props }) => {
   };
 
   const itemProps = {
+    editorRef,
     isItemNew,
     itemName,
     setItemName,

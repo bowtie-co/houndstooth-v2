@@ -4,7 +4,7 @@ import AsyncSelect from 'react-select/async';
 import { FormGroup } from '../';
 
 export const FormFieldSelect = (props) => {
-  console.log('FormFieldSelect', { props });
+  // console.debug('FormFieldSelect', { props });
 
   const { id, col, options, async, name, onChange, value, list, className = '', edited, ...rest } = props;
   const { valueKey, labelKey } = rest;
