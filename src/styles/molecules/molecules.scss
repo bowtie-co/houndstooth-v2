@@ -309,9 +309,9 @@ div.Select-menu-outer {
 }
 .form-check-label {}
 .form-check-input {
-	position: absolute;
-	margin-top: .125rem;
-	margin-left: 10px !important;
+  position: absolute;
+  margin-top: .125rem;
+  margin-left: 10px !important;
   zoom: 1.5;
 }
 
@@ -329,6 +329,7 @@ div.DateInput__block {
       border: none !important;
       background: none !important;
       box-shadow: none !important;
+      color: grey !important
     }
     .small {
       font-size: 0.75rem;

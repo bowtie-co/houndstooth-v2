@@ -111,20 +111,20 @@ export const AppNavbar = ({ children, ...props }) => {
             <LanguageSelect {...props} />
           )}
 
-					<NavItem>
-						<NavLink href={REACT_APP_DOCS_URL} target='_blank' rel='noopener noreferrer'>
-							<section>
-								<AppIcon className='fas fa-code' color='white' size='sm'/>
-								<div className="small">{translate('navbar.docs')}</div>
-							</section>
-						</NavLink>
-					</NavItem>
+          <NavItem>
+            <NavLink href={REACT_APP_DOCS_URL} target='_blank' rel='noopener noreferrer'>
+              <section>
+                <AppIcon className='fas fa-code' size='sm'/>
+                <div className="small">{translate('navbar.docs')}</div>
+              </section>
+            </NavLink>
+          </NavItem>
 
           {repo && (
             <NavItem>
               <NavLink href={repo.html_url} target='_blank' rel='noopener noreferrer'>
-                <section>
-                  <AppIcon className='fab fa-github' color='white' size='sm' />
+                <section> 
+                  <AppIcon className='fab fa-github' size='sm' />
                   <div className="small">{translate('navbar.source')}</div>
                 </section>
               </NavLink>
