@@ -4,6 +4,7 @@ import { Progress, Row, Col, Label } from 'reactstrap';
 import { AppButton, AppIcon } from '../../../atoms';
 import { FormGroup } from '../';
 import { fileIcons } from '../../../lib/lists';
+import { safeFilename } from '../../../lib/helpers';
 import { notifier } from '../../../lib';
 
 const getFileExt = (filename) => {
@@ -64,7 +65,7 @@ export const FormFieldUpload = (props) => {
     setShowPreview(true);
 
     api.post('upload', {
-      Key: `${repo.full_name}/${Date.now()}-${file.name}`,
+      Key: `${repo.full_name}/${Date.now()}-${safeFilename(file.name)}`,
       ContentType: file.type
     }).then(resp => resp.json()).then((upload) => {
       const { publicUrl, signedUrl } = upload;

@@ -78,6 +78,7 @@ export const FormFieldFileUpload = (props) => {
           !disabled &&
             <div className='inputfile'>
               <div className='file-upload'>
+                {/* TODO: Upgrade/replace this base64 file package? */}
                 <FileBase64
                   multiple={false}
                   onDone={handleFileUpload(props)}

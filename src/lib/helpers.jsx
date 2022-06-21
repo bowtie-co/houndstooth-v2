@@ -4,6 +4,12 @@ import moment from 'moment';
 //   WithApp
 // } from '../ecosystems';
 
+export const safeFilename = (filename) => {
+  if (!filename) return '';
+
+  return filename.trim().replace(/[^a-z0-9_\-.]/ig, '_');
+};
+
 export const injectPageProps = (routes, buildProps) => {
   const safeBuild = buildProps ? buildProps : () => ({});
   const pageProps = {};
