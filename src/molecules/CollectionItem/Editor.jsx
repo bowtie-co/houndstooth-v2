@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Editor } from '@tinymce/tinymce-react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { safeFilename } from '../../lib/helpers';
 import { notifier } from '../../lib';
 
 
@@ -14,7 +15,7 @@ export const CollectionItemEditor = (props) => {
     const blob = blobInfo.blob();
 
     api.post('upload', {
-      Key: `${repo.full_name}/${Date.now()}-${blob.name}`,
+      Key: `${repo.full_name}/${Date.now()}-${safeFilename(blob.name)}`,
       ContentType: blob.type
     }).then(resp => resp.json()).then((upload) => {
       const { publicUrl, signedUrl } = upload;
