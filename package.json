@@ -30,7 +30,7 @@
     "react-dropzone-s3-uploader": "^1.1.0",
     "react-file-base64": "^1.0.3",
     "react-jsonschema-form": "^1.8.1",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^5.0.1",
     "react-select": "^3.1.0",
     "react-spinners": "^0.6.1",
     "reactstrap": "^8.4.1",
