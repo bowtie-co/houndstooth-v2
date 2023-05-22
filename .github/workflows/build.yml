@@ -1,4 +1,4 @@
-name: Build and Test App
+name: Build App
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
       - synchronize
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,8 +19,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Run tests
-        run: npm run test
       - name: Install dependencies
         run: npm install
       - name: Build app

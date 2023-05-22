@@ -3,7 +3,7 @@ name: Update PR Status
 on:
   workflow_run:
     workflows:
-      - "Build and Test App"
+      - "Build App"
     types:
       - completed
 
