@@ -5,11 +5,6 @@ on:
     types:
       - opened
       - synchronize
-  workflow_run:
-    workflows:
-      - "Build and Test App"
-    types:
-      - completed
 
 jobs:
   build-and-test:
