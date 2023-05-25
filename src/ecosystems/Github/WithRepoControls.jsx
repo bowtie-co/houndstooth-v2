@@ -205,12 +205,14 @@ export const WithGithubRepoControls = ({ children, ...props }) => {
           console.error(err);
 
           // Send error to Airbrake
-          airbrake.notify({
-            error: err,
-            params: {
-              repoProps
-            }
-          });
+          if (airbrake) {
+            airbrake.notify({
+              error: err,
+              params: {
+                repoProps
+              }
+            });
+          }
         }
 
         if (reload) {
