@@ -1,52 +1,52 @@
-name: Update PR Status
+# name: Update PR Status
 
-on:
-  workflow_run:
-    workflows:
-      - "Build App"
-    types:
-      - completed
+# on:
+#   workflow_run:
+#     workflows:
+#       - "Build App"
+#     types:
+#       - completed
 
-jobs:
-  update-status:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check build status
-        id: check_build
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const run = await github.actions.getWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: context.payload.workflow_run.id
-            });
+# jobs:
+#   update-status:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check build status
+#         id: check_build
+#         uses: actions/github-script@v5
+#         with:
+#           script: |
+#             const run = await github.actions.getWorkflowRun({
+#               owner: context.repo.owner,
+#               repo: context.repo.repo,
+#               run_id: context.payload.workflow_run.id
+#             });
 
-            return run.data.conclusion;
+#             return run.data.conclusion;
 
-      - name: Update pull request status
-        if: ${{ job.steps.check_build.outputs.status == 'failure' }}
-        run: |
-          echo "Build failed. Updating pull request status..."
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.antiope-preview+json" \
-            -d '{
-              "state": "failure",
-              "context": "build",
-              "description": "Build failed",
-              "target_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            }' \
-            "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
+#       - name: Update pull request status
+#         if: ${{ job.steps.check_build.outputs.status == 'failure' }}
+#         run: |
+#           echo "Build failed. Updating pull request status..."
+#           curl -X POST \
+#             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+#             -H "Accept: application/vnd.github.antiope-preview+json" \
+#             -d '{
+#               "state": "failure",
+#               "context": "build",
+#               "description": "Build failed",
+#               "target_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+#             }' \
+#             "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
 
-          echo "Blocking the pull request from being merged..."
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.antiope-preview+json" \
-            -d '{
-              "dismissal_restrictions": {
-                "users": ["*"],
-                "teams": ["*"]
-              }
-            }' \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.workflow_run.head_branch }}/reviews"
+#           echo "Blocking the pull request from being merged..."
+#           curl -X POST \
+#             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+#             -H "Accept: application/vnd.github.antiope-preview+json" \
+#             -d '{
+#               "dismissal_restrictions": {
+#                 "users": ["*"],
+#                 "teams": ["*"]
+#               }
+#             }' \
+#             "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.workflow_run.head_branch }}/reviews"
